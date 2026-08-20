@@ -1,0 +1,8 @@
+# Curated decks contain the actual game/song answers for solo play.
+# Keep them local-only — import via the app's "Import CSV" button instead
+# of publishing them, so the hosted site never leaks spoilers via the repo.
+decks/
+
+# OS / editor junk
+.DS_Store
+Thumbs.db

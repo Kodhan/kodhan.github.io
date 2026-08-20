@@ -1,0 +1,265 @@
+:root{
+  --ink:#1b1d23;
+  --paper:#ffffff;
+  --muted:#6b7280;
+  --line:#d8dbe2;
+  --accent:#5b3df0;
+  --accent-soft:#efeaff;
+  --spotify:#1db954;
+  --youtube:#ff0000;
+  --danger:#d63a3a;
+  font-family: "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+}
+
+*{box-sizing:border-box;}
+
+body{
+  margin:0;
+  background:#f2f3f7;
+  color:var(--ink);
+}
+
+#app{max-width:1400px;margin:0 auto;padding:20px 24px 60px;}
+
+header h1{margin:0 0 4px;font-size:1.6rem;}
+header .subtitle{margin:0 0 18px;color:var(--muted);}
+
+.toolbar{
+  display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;
+  background:var(--paper);border:1px solid var(--line);border-radius:10px;
+  padding:12px 14px;margin-bottom:10px;
+}
+.toolbar-group{display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+
+button, .file-btn{
+  border:1px solid var(--line);background:#fff;color:var(--ink);
+  padding:8px 14px;border-radius:8px;cursor:pointer;font-size:0.9rem;
+  display:inline-block;
+}
+button:hover, .file-btn:hover{border-color:var(--accent);color:var(--accent);}
+button.primary{background:var(--accent);color:#fff;border-color:var(--accent);}
+button.primary:hover{opacity:.9;color:#fff;}
+button.danger{color:var(--danger);}
+button.danger:hover{border-color:var(--danger);}
+.file-btn input{display:none;}
+
+.settings-bar{
+  display:flex;flex-wrap:wrap;gap:16px;align-items:center;
+  background:var(--paper);border:1px solid var(--line);border-radius:10px;
+  padding:10px 14px;margin-bottom:18px;font-size:0.85rem;
+}
+.settings-bar label{display:flex;flex-direction:column;gap:3px;color:var(--muted);}
+.settings-bar label.checkbox{flex-direction:row;align-items:center;gap:6px;color:var(--ink);}
+.settings-bar select, .settings-bar input[type=number]{
+  padding:5px 6px;border:1px solid var(--line);border-radius:6px;font-size:0.85rem;
+}
+.hidden{display:none !important;}
+
+.main-layout{display:grid;grid-template-columns:1fr;gap:20px;}
+
+.data-panel{
+  background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:14px 16px;
+}
+.data-panel h2{margin:0 0 10px;font-size:1.05rem;}
+.count-badge{
+  background:var(--accent-soft);color:var(--accent);border-radius:20px;
+  padding:1px 10px;font-size:0.8rem;margin-left:6px;
+}
+.table-wrap{overflow-x:auto;}
+table{border-collapse:collapse;width:100%;font-size:0.85rem;}
+th{text-align:left;color:var(--muted);font-weight:600;padding:6px 6px;border-bottom:2px solid var(--line);}
+td{padding:3px 6px;border-bottom:1px solid var(--line);vertical-align:top;}
+td input{
+  width:100%;border:1px solid transparent;background:transparent;padding:6px 5px;
+  border-radius:5px;font-size:0.85rem;font-family:inherit;
+}
+td input:hover{border-color:var(--line);}
+td input:focus{border-color:var(--accent);background:#fff;outline:none;}
+tr.row-invalid td{background:#fff4f2;}
+.row-del{color:var(--danger);border:none;background:none;cursor:pointer;font-size:1rem;padding:4px 8px;}
+.url-badge{
+  display:inline-block;font-size:0.68rem;font-weight:700;padding:1px 6px;border-radius:4px;color:#fff;margin-top:3px;
+}
+.url-badge.spotify{background:var(--spotify);}
+.url-badge.youtube{background:var(--youtube);}
+.url-badge.other{background:var(--muted);}
+.url-badge.missing{background:#e0a800;}
+
+.preview-panel h2{font-size:1.05rem;margin:20px 0 8px;}
+.preview-panel h2 small{color:var(--muted);font-weight:400;}
+
+.sheets{
+  transform-origin: top left;
+}
+
+.sheet{
+  background:#fff;
+  position:relative;
+  box-shadow:0 0 0 1px #ccc, 0 4px 14px rgba(0,0,0,0.12);
+  margin:0 0 24px 0;
+}
+
+.card{
+  position:absolute;
+  overflow:hidden;
+  background:#fff;
+}
+.card.cut-guides{outline:1px dashed #999;outline-offset:-1px;}
+
+.card-front{
+  width:100%;height:100%;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;padding:4%;text-align:center;gap:4%;
+}
+.card-front .qr-wrap{width:66%;aspect-ratio:1/1;}
+.card-front .qr-wrap svg{width:100%;height:100%;display:block;}
+.card-front .scan-hint{font-size:0.62rem;color:var(--muted);letter-spacing:.04em;text-transform:uppercase;}
+
+.card-back{
+  width:100%;height:100%;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;padding:6%;text-align:center;gap:3%;
+}
+.card-back .cb-game{font-weight:700;font-size:1.05em;line-height:1.15;}
+.card-back .cb-year{font-weight:800;font-size:2.4em;color:var(--accent);line-height:1;}
+.card-back .cb-studio{font-size:0.95em;color:#333;}
+.card-back .cb-notes{font-size:0.72em;color:var(--muted);font-style:italic;line-height:1.2;}
+
+.empty-hint{
+  padding:40px;text-align:center;color:var(--muted);border:2px dashed var(--line);border-radius:10px;
+}
+
+footer{margin-top:30px;color:var(--muted);font-size:0.8rem;}
+footer a{color:var(--accent);}
+
+/* ---------- Play mode ---------- */
+.play-overlay{
+  position:fixed;inset:0;background:rgba(20,18,30,0.78);
+  display:flex;align-items:center;justify-content:center;
+  z-index:1000;padding:20px;
+}
+.play-overlay.hidden{display:none;}
+
+.play-card{
+  background:#fff;border-radius:16px;max-width:480px;width:100%;
+  max-height:92vh;overflow-y:auto;padding:22px 22px 18px;position:relative;
+  box-shadow:0 20px 60px rgba(0,0,0,0.4);
+}
+.play-close{
+  position:absolute;top:12px;right:12px;border:none;background:none;
+  font-size:1.1rem;color:var(--muted);cursor:pointer;padding:6px 10px;border-radius:8px;
+}
+.play-close:hover{background:#f2f2f5;color:var(--ink);}
+
+.play-progress{
+  text-align:center;font-weight:700;color:var(--accent);letter-spacing:.04em;
+  margin-bottom:12px;font-size:0.9rem;
+}
+
+.play-embed{min-height:60px;position:relative;}
+.play-embed iframe{border-radius:12px;display:block;}
+
+/* "Mystery" transport: shown instead of the real widget so cover art / title
+   / video thumbnail can't spoil the answer before Reveal is clicked. */
+.play-mystery{
+  display:flex;flex-direction:column;align-items:center;gap:14px;
+  padding:28px 10px;background:linear-gradient(160deg,var(--accent-soft),#fff);
+  border-radius:14px;
+}
+.play-mystery.hidden{display:none;}
+.play-mystery-icon{
+  font-size:2.6rem;filter:grayscale(0.15);opacity:0.85;
+  animation:none;
+}
+.play-mystery-icon.spinning{animation:spin 3.2s linear infinite;}
+@keyframes spin{ from{transform:rotate(0deg);} to{transform:rotate(360deg);} }
+.play-transport{display:flex;align-items:center;gap:10px;width:100%;}
+.play-transport button{flex:0 0 auto;padding:8px 14px;}
+.play-transport input[type=range]{flex:1;accent-color:var(--accent);}
+.play-time{flex:0 0 auto;font-size:0.75rem;color:var(--muted);font-variant-numeric:tabular-nums;min-width:78px;text-align:right;}
+
+/* The real Spotify/YouTube widget — kept mounted (so audio keeps playing)
+   but visually collapsed to nothing until the answer is revealed. */
+.play-widget-host{width:100%;}
+.play-widget-host.spoiler-hidden{
+  position:absolute;top:0;left:0;width:1px;height:1px;opacity:0;
+  overflow:hidden;pointer-events:none;
+}
+.play-widget-host iframe{border-radius:12px;display:block;width:100%;}
+
+.play-openlink{
+  display:block;text-align:center;margin-top:8px;font-size:0.82rem;color:var(--accent);
+  text-decoration:none;
+}
+.play-openlink:hover{text-decoration:underline;}
+.play-nolink{
+  padding:30px 10px;text-align:center;color:var(--muted);background:#f7f7fa;
+  border-radius:12px;font-size:0.9rem;
+}
+.play-nolink.hidden{display:none;}
+
+.play-controls{display:flex;gap:8px;margin-top:16px;}
+.play-controls button{flex:1;}
+#playPrev:disabled{opacity:0.4;cursor:default;}
+
+.play-answer{
+  margin-top:16px;padding:16px;border-radius:12px;background:var(--accent-soft);
+  text-align:center;display:flex;flex-direction:column;gap:4px;
+}
+.play-answer.hidden{display:none;}
+.play-answer .cb-year{font-size:2.2em;}
+
+.play-footer{
+  margin-top:16px;display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:10px;font-size:0.85rem;
+}
+.play-hint{margin-top:10px;text-align:center;font-size:0.72rem;color:var(--muted);}
+
+/* ---------- Blind mode ---------- */
+/* Blurs the spoiler-y fields (game/year/studio/notes) everywhere on screen —
+   the data table AND the "Backs" print preview — so you can manage/import a
+   deck without seeing the answers. A field sharpens while you're actually
+   focused inside it (so you can still edit a typo on purpose). Printed/PDF
+   output is exempted below: physical cards obviously need readable backs. */
+.blind-toggle{
+  background:#fff3d6;border:1px solid #e8c874;border-radius:8px;padding:6px 12px;
+}
+.blind-mode .blind-toggle{background:#ffe1a8;}
+
+.blind-mode td input[data-field="game"],
+.blind-mode td input[data-field="year"],
+.blind-mode td input[data-field="studio"],
+.blind-mode td input[data-field="notes"]{
+  filter:blur(5px);
+  transition:filter .12s;
+}
+.blind-mode td input[data-field="game"]:focus,
+.blind-mode td input[data-field="year"]:focus,
+.blind-mode td input[data-field="studio"]:focus,
+.blind-mode td input[data-field="notes"]:focus{
+  filter:none;
+}
+
+.blind-mode .card-back{
+  filter:blur(11px);
+  transition:filter .12s;
+}
+.blind-mode #backsHeading::after{
+  content:" 🙈 blurred on screen (prints normally)";
+  color:#b8860b;font-weight:600;font-size:0.75rem;margin-left:8px;
+}
+
+/* ---------- PRINT ---------- */
+@media print{
+  body{background:#fff;}
+  .no-print{display:none !important;}
+  #app{max-width:none;margin:0;padding:0;}
+  .main-layout{display:block;}
+  .sheets{transform:none !important;}
+  .sheet{
+    box-shadow:none;margin:0;
+    page-break-after:always;
+    break-after:page;
+  }
+  .preview-panel h2{display:none;}
+  /* Blind Mode is an on-screen-only precaution — printed cards must be readable. */
+  .card-back{filter:none !important;}
+}

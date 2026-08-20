@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VGM Trivia Card Maker</title>
+<link rel="stylesheet" href="style.css?v=4">
+</head>
+<body>
+
+<div id="app">
+
+  <header class="no-print">
+    <h1>🎮 VGM Trivia Card Maker</h1>
+    <p class="subtitle">Build print-ready cards: QR code (Spotify or YouTube) on the front, game / year / studio on the back.</p>
+  </header>
+
+  <div class="toolbar no-print">
+    <div class="toolbar-group">
+      <button id="btnAddCard">+ Add Card</button>
+      <button id="btnLoadSample">Load Sample Deck</button>
+      <button id="btnClearAll" class="danger">Clear All</button>
+    </div>
+    <div class="toolbar-group">
+      <label class="file-btn">
+        Import CSV
+        <input type="file" id="csvFileInput" accept=".csv" hidden>
+      </label>
+      <button id="btnExportCsv">Export CSV</button>
+      <button id="btnDownloadTemplate">Download Template</button>
+    </div>
+    <div class="toolbar-group">
+      <label class="checkbox blind-toggle" title="Blurs Game/Year/Studio/Notes everywhere on screen, so you can manage a deck without spoiling it for yourself. Printed/PDF output is never blurred.">
+        <input type="checkbox" id="setBlindMode"> 🙈 Blind Mode
+      </label>
+    </div>
+    <div class="toolbar-group">
+      <button id="btnPlayMode" class="primary">▶ Play Mode</button>
+      <button id="btnPrint">🖨️ Print / Save PDF</button>
+    </div>
+  </div>
+
+  <div class="settings-bar no-print">
+    <label>Page size
+      <select id="setPageSize">
+        <option value="A4">A4</option>
+        <option value="Letter">US Letter</option>
+      </select>
+    </label>
+    <label>Card size
+      <select id="setCardSize">
+        <option value="poker">Poker (63.5×88.9mm)</option>
+        <option value="bridge">Bridge (57.2×88.9mm)</option>
+        <option value="tarot">Tarot (70×120mm)</option>
+        <option value="custom">Custom…</option>
+      </select>
+    </label>
+    <span id="customSizeWrap" class="hidden">
+      <label>W(mm) <input type="number" id="setCustomW" value="63.5" min="20" max="150" step="0.1"></label>
+      <label>H(mm) <input type="number" id="setCustomH" value="88.9" min="20" max="200" step="0.1"></label>
+    </span>
+    <label>Duplex alignment
+      <select id="setDuplex">
+        <option value="long">Flip on long edge (default duplex)</option>
+        <option value="short">Flip on short edge</option>
+        <option value="none">Print separately &amp; glue back-to-back</option>
+      </select>
+    </label>
+    <label class="checkbox"><input type="checkbox" id="setCutGuides" checked> Cut guides</label>
+    <label class="checkbox"><input type="checkbox" id="setShowNotes" checked> Show notes/composer on back</label>
+    <label>Preview zoom
+      <input type="range" id="setZoom" min="0.3" max="1" step="0.05" value="0.55">
+    </label>
+  </div>
+
+  <div class="main-layout">
+
+    <section class="data-panel no-print">
+      <h2>Card Data <span id="cardCount" class="count-badge">0</span></h2>
+      <div class="table-wrap">
+        <table id="cardTable">
+          <thead>
+            <tr>
+              <th style="width:22%">Game</th>
+              <th style="width:8%">Year</th>
+              <th style="width:16%">Studio</th>
+              <th style="width:30%">Music URL (Spotify or YouTube)</th>
+              <th style="width:16%">Notes / Composer</th>
+              <th style="width:8%"></th>
+            </tr>
+          </thead>
+          <tbody id="cardTableBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="preview-panel">
+      <h2 class="no-print">Fronts <small>(QR codes)</small></h2>
+      <div id="frontSheets" class="sheets"></div>
+
+      <h2 class="no-print" id="backsHeading">Backs <small>(answers)</small></h2>
+      <div id="backSheets" class="sheets"></div>
+    </section>
+
+  </div>
+
+  <div id="playOverlay" class="play-overlay hidden no-print">
+    <div class="play-card">
+      <button id="playClose" class="play-close" title="Close (Esc)">✕</button>
+      <div class="play-progress" id="playProgress">1 / 1</div>
+      <div class="play-embed" id="playEmbed">
+        <div class="play-mystery hidden" id="playMystery">
+          <div class="play-mystery-icon" id="playMysteryIcon">🎵</div>
+          <div class="play-transport">
+            <button id="playMysteryToggle" type="button">▶ Play</button>
+            <input type="range" id="playProgressBar" min="0" max="0" step="1" value="0">
+            <span class="play-time" id="playTimeLabel">0:00 / 0:00</span>
+          </div>
+        </div>
+        <div class="play-widget-host spoiler-hidden" id="playWidgetHost"></div>
+        <div class="play-nolink hidden" id="playNolink"></div>
+        <div id="playOpenLinkWrap"></div>
+      </div>
+      <div class="play-controls">
+        <button id="playPrev">◀ Prev</button>
+        <button id="playReveal" class="primary">Reveal Answer</button>
+        <button id="playNext">Next ▶</button>
+      </div>
+      <div class="play-answer hidden" id="playAnswer">
+        <div class="cb-game" id="playGame"></div>
+        <div class="cb-year" id="playYear"></div>
+        <div class="cb-studio" id="playStudio"></div>
+        <div class="cb-notes" id="playNotes"></div>
+      </div>
+      <div class="play-footer">
+        <button id="playShuffle">🔀 Shuffle deck</button>
+        <label class="checkbox"><input type="checkbox" id="playAutoHide" checked> Auto-hide answer on next card</label>
+      </div>
+      <div class="play-hint">Keyboard: ← / → to navigate · Space to reveal · Esc to close</div>
+    </div>
+  </div>
+
+  <footer class="no-print">
+    <p>Data is auto-saved in this browser (localStorage). Use <strong>Export CSV</strong> to keep a permanent backup. See <a href="README.md" target="_blank">README.md</a> for the Spotify-vs-YouTube coverage notes and printing tips.</p>
+  </footer>
+
+</div>
+
+<script src="vendor/qrcode.js"></script>
+<script src="app.js?v=4"></script>
+</body>
+</html>
