@@ -157,6 +157,27 @@ footer a{color:var(--accent);}
 .play-embed{min-height:60px;position:relative;}
 .play-embed iframe{border-radius:12px;display:block;}
 
+/* ---- Scan Card mode: live camera view for QR scanning ---- */
+.play-camera{display:flex;flex-direction:column;align-items:center;gap:12px;}
+#playOverlay:not(.camera-active) .play-camera{display:none;}
+#playOverlay.camera-active .play-embed,
+#playOverlay.camera-active .play-controls,
+#playOverlay.camera-active .play-answer,
+#playOverlay.camera-active .play-footer{display:none;}
+
+.play-camera-viewport{
+  position:relative;width:100%;aspect-ratio:1/1;background:#111;
+  border-radius:14px;overflow:hidden;
+}
+.play-camera-viewport video{width:100%;height:100%;object-fit:cover;display:block;}
+.play-camera-frame{
+  position:absolute;inset:14%;border:3px solid rgba(255,255,255,0.9);border-radius:16px;
+  box-shadow:0 0 0 2000px rgba(0,0,0,0.35);pointer-events:none;
+}
+.play-camera-hint{text-align:center;font-size:0.85rem;color:var(--muted);min-height:1.4em;}
+.play-camera-hint.error{color:var(--danger);font-weight:600;}
+#playCameraCancel{width:100%;}
+
 /* "Mystery" transport: shown instead of the real widget so cover art / title
    / video thumbnail can't spoil the answer before Reveal is clicked. */
 .play-mystery{

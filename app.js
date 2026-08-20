@@ -25,6 +25,10 @@ const GAP_MM = 4;
 
 const STORAGE_KEY = 'vgmCardMaker.v1';
 
+// Bundled full deck, fetched at runtime (works when served over http/https —
+// e.g. the hosted GitHub Pages site — not from a bare file:// double-click).
+const LIBRARY_CSV_PATH = 'data/library.csv';
+
 const SAMPLE_CARDS = [
   { game: 'Super Mario Bros.', year: '1985', studio: 'Nintendo R&D4', url: 'https://open.spotify.com/track/03fijJ2GEzZ92Zl5fuTxI7', notes: 'Koji Kondo — cover recording (official Nintendo OST is not on Spotify)' },
   { game: 'The Legend of Zelda: Ocarina of Time', year: '1998', studio: 'Nintendo EAD', url: 'https://www.youtube.com/watch?v=0hEYvdMoF2g', notes: 'Koji Kondo — "Gerudo Valley" (Nintendo OST absent from Spotify, linked via YouTube)' },
@@ -51,7 +55,7 @@ let state = {
     cutGuides: true,
     showNotes: true,
     zoom: 0.55,
-    blindMode: false,
+    blindMode: true,
   },
 };
 
@@ -230,16 +234,17 @@ const els = {};
 
 function cacheEls() {
   [
-    'btnAddCard', 'btnLoadSample', 'btnClearAll', 'csvFileInput', 'btnExportCsv',
+    'btnAddCard', 'btnLoadSample', 'btnLoadLibrary', 'btnClearAll', 'csvFileInput', 'btnExportCsv',
     'btnDownloadTemplate', 'btnPrint', 'setPageSize', 'setCardSize', 'customSizeWrap',
     'setCustomW', 'setCustomH', 'setDuplex', 'setCutGuides', 'setShowNotes', 'setZoom',
     'setBlindMode',
     'cardTableBody', 'cardCount', 'frontSheets', 'backSheets',
-    'btnPlayMode', 'playOverlay', 'playClose', 'playProgress', 'playEmbed',
+    'btnPlayMode', 'btnScanMode', 'playOverlay', 'playClose', 'playProgress', 'playEmbed',
     'playPrev', 'playReveal', 'playNext', 'playAnswer', 'playGame', 'playYear',
     'playStudio', 'playNotes', 'playShuffle', 'playAutoHide',
     'playMystery', 'playMysteryIcon', 'playMysteryToggle', 'playProgressBar',
     'playTimeLabel', 'playWidgetHost', 'playNolink', 'playOpenLinkWrap',
+    'playCameraWrap', 'playCameraVideo', 'playCameraHint', 'playCameraCancel',
   ].forEach(id => { els[id] = document.getElementById(id); });
 }
 
@@ -452,6 +457,14 @@ const scheduleRenderPreview = debounce(renderPreview, 200);
 let playDeck = [];
 let playIndex = 0;
 let playRevealed = false;
+let playOverlayMode = 'deck'; // 'deck' (digital Play Mode) | 'scan' (camera QR scanning)
+
+// Camera QR-scanning state (Scan Card mode)
+let cameraStream = null;
+let cameraRafId = null;
+let scanCanvas = null;
+let scanCount = 0;
+const SCAN_MAX_DIM = 480; // downscale captured frames for faster decoding
 
 // The currently-live player: either a Spotify iFrame API controller or a
 // YouTube IFrame Player. Both expose enough of a common shape (play/pause,
@@ -549,6 +562,10 @@ function teardownPlayer() {
 
 function openPlayMode() {
   if (!state.cards.length) { alert('Add some cards first!'); return; }
+  playOverlayMode = 'deck';
+  els.playOverlay.classList.remove('camera-active');
+  els.playPrev.classList.remove('hidden');
+  els.playShuffle.classList.remove('hidden');
   playDeck = shuffleArray(state.cards);
   playIndex = 0;
   playRevealed = false;
@@ -557,7 +574,21 @@ function openPlayMode() {
   showPlayCard();
 }
 
+function openScanMode() {
+  playOverlayMode = 'scan';
+  scanCount = 0;
+  playRevealed = false;
+  els.playPrev.classList.add('hidden');
+  els.playShuffle.classList.add('hidden');
+  els.playProgress.textContent = '📷 Scan a card';
+  els.playOverlay.classList.remove('hidden');
+  document.addEventListener('keydown', onPlayKeydown);
+  startCameraScan();
+}
+
 function closePlayMode() {
+  stopCameraStream();
+  els.playOverlay.classList.remove('camera-active');
   teardownPlayer();
   embedRequestId++; // invalidate any in-flight async load
   els.playWidgetHost.innerHTML = '';
@@ -567,9 +598,101 @@ function closePlayMode() {
 
 function onPlayKeydown(e) {
   if (e.key === 'Escape') closePlayMode();
-  else if (e.key === 'ArrowRight') goPlayNext();
-  else if (e.key === 'ArrowLeft') goPlayPrev();
+  else if (e.key === 'ArrowRight') { if (playOverlayMode === 'scan') startCameraScan(); else goPlayNext(); }
+  else if (e.key === 'ArrowLeft') { if (playOverlayMode === 'deck') goPlayPrev(); }
   else if (e.key === ' ') { e.preventDefault(); setAnswerVisible(!playRevealed); }
+}
+
+/* ---- Camera QR scanning (Scan Card mode) ---- */
+
+function stopCameraStream() {
+  if (cameraRafId) { cancelAnimationFrame(cameraRafId); cameraRafId = null; }
+  if (cameraStream) {
+    cameraStream.getTracks().forEach((t) => { try { t.stop(); } catch (e) {} });
+    cameraStream = null;
+  }
+  els.playCameraVideo.srcObject = null;
+}
+
+function setCameraHint(text, isError) {
+  els.playCameraHint.textContent = text;
+  els.playCameraHint.classList.toggle('error', !!isError);
+}
+
+async function startCameraScan() {
+  els.playOverlay.classList.add('camera-active');
+  setCameraHint("Point your camera at a card's QR code…", false);
+  teardownPlayer(); // stop whatever was playing from a previous scan
+  stopCameraStream();
+
+  const isSecureContext = location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+  if (!isSecureContext) {
+    setCameraHint('Camera scanning needs https or localhost — open the hosted site (or run a local server) instead of a file:// page.', true);
+    return;
+  }
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+    setCameraHint("This browser doesn't support camera access.", true);
+    return;
+  }
+
+  try {
+    cameraStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: { ideal: 'environment' } }, audio: false });
+  } catch (e) {
+    setCameraHint('Camera permission was denied (or no camera is available). Allow camera access and try again.', true);
+    return;
+  }
+
+  els.playCameraVideo.srcObject = cameraStream;
+  try { await els.playCameraVideo.play(); } catch (e) {}
+
+  if (!scanCanvas) scanCanvas = document.createElement('canvas');
+  const ctx = scanCanvas.getContext('2d', { willReadFrequently: true });
+
+  const tick = () => {
+    const video = els.playCameraVideo;
+    if (video.readyState === video.HAVE_ENOUGH_DATA && video.videoWidth) {
+      const scale = Math.min(1, SCAN_MAX_DIM / Math.max(video.videoWidth, video.videoHeight));
+      scanCanvas.width = Math.max(1, Math.round(video.videoWidth * scale));
+      scanCanvas.height = Math.max(1, Math.round(video.videoHeight * scale));
+      ctx.drawImage(video, 0, 0, scanCanvas.width, scanCanvas.height);
+      const imageData = ctx.getImageData(0, 0, scanCanvas.width, scanCanvas.height);
+      const result = jsQR(imageData.data, imageData.width, imageData.height, { inversionAttempts: 'dontInvert' });
+      if (result && result.data) {
+        onQrScanned(result.data);
+        return; // stop the loop; onQrScanned takes over the UI
+      }
+    }
+    cameraRafId = requestAnimationFrame(tick);
+  };
+  cameraRafId = requestAnimationFrame(tick);
+}
+
+function onQrScanned(text) {
+  stopCameraStream();
+  els.playOverlay.classList.remove('camera-active');
+  scanCount++;
+
+  const scanned = (text || '').trim();
+  const match = state.cards.find((c) => c.url && c.url.trim() === scanned);
+
+  els.playProgress.textContent = `📷 Scan #${scanCount}` + (match ? '' : ' (not in current deck)');
+  renderPlayEmbed({ url: scanned });
+
+  if (match) {
+    els.playGame.textContent = match.game || '(untitled)';
+    els.playYear.textContent = match.year || '?';
+    els.playStudio.textContent = match.studio || '';
+    els.playNotes.textContent = match.notes || '';
+    els.playNotes.classList.toggle('hidden', !match.notes);
+  } else {
+    els.playGame.textContent = 'Not found in your current deck';
+    els.playYear.textContent = '—';
+    els.playStudio.textContent = "This QR code's link isn't in the deck currently loaded in the app.";
+    els.playNotes.textContent = '';
+    els.playNotes.classList.add('hidden');
+  }
+  setAnswerVisible(els.playAutoHide.checked ? false : playRevealed);
+  els.playNext.textContent = '📷 Scan Next Card';
 }
 
 async function renderPlayEmbed(card) {
@@ -695,8 +818,13 @@ function goPlayPrev() {
 
 function wirePlayMode() {
   els.btnPlayMode.addEventListener('click', openPlayMode);
+  els.btnScanMode.addEventListener('click', openScanMode);
+  els.playCameraCancel.addEventListener('click', closePlayMode);
   els.playClose.addEventListener('click', closePlayMode);
-  els.playNext.addEventListener('click', goPlayNext);
+  els.playNext.addEventListener('click', () => {
+    if (playOverlayMode === 'scan') startCameraScan();
+    else goPlayNext();
+  });
   els.playPrev.addEventListener('click', goPlayPrev);
   els.playReveal.addEventListener('click', () => setAnswerVisible(!playRevealed));
   els.playMysteryToggle.addEventListener('click', toggleMysteryPlayback);
@@ -808,6 +936,32 @@ function wireToolbar() {
     if (state.cards.length && !confirm('This will append the 8-card sample deck to your current cards. Continue?')) return;
     SAMPLE_CARDS.forEach(c => addCard(c));
     saveState(); renderTable(); renderPreview();
+  });
+
+  els.btnLoadLibrary.addEventListener('click', async () => {
+    if (state.cards.length && !confirm('This will append the full library to your current cards. Continue?')) return;
+    const originalLabel = els.btnLoadLibrary.textContent;
+    els.btnLoadLibrary.disabled = true;
+    els.btnLoadLibrary.textContent = 'Loading…';
+    try {
+      const res = await fetch(LIBRARY_CSV_PATH, { cache: 'no-store' });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const text = await res.text();
+      const imported = csvToCards(text);
+      if (!imported.length) throw new Error('Library file was empty');
+      state.cards = state.cards.concat(imported);
+      saveState(); renderTable(); renderPreview();
+    } catch (e) {
+      alert(
+        "Couldn't load the bundled library (" + e.message + ").\n\n" +
+        "This button fetches data/library.csv, which only works when the app is served over http/https " +
+        "(e.g. the hosted GitHub Pages site, or a local server) — not when index.html is opened directly " +
+        "as a file:// page. Use Import CSV instead for local files."
+      );
+    } finally {
+      els.btnLoadLibrary.disabled = false;
+      els.btnLoadLibrary.textContent = originalLabel;
+    }
   });
 
   els.btnClearAll.addEventListener('click', () => {

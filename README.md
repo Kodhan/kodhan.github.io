@@ -5,18 +5,20 @@ A print-and-play card generator for your video-game-music guessing board game:
 - **Front of card:** a QR code linking to the song (Spotify *or* YouTube — mix and match per card).
 - **Back of card:** game title, release year, and studio, so players can check their guess.
 - **▶ Play Mode:** play solo (or as a group around one screen) right in the browser — no printing needed. It plays each song in an embedded, auto-playing player and lets you reveal/hide the answer on demand.
-- **🙈 Blind Mode:** blurs Game/Year/Studio/Notes everywhere on screen (the data table *and* the Backs print preview) so you can import/manage a big deck without spoiling it for yourself. Printed/PDF output is never blurred.
+- **📷 Scan Card:** use your phone's camera *in the browser* to scan a printed card's QR code — like Hitster's app. It plays the song immediately, answer hidden, no need to switch to your camera app.
+- **🙈 Blind Mode:** blurs Game/Year/Studio/Notes everywhere on screen (the data table *and* the Backs print preview) so you can import/manage a big deck without spoiling it for yourself. Printed/PDF output is never blurred. **On by default.**
+- **📚 Load Full Library:** one click to load the bundled full deck ([`data/library.csv`](data/library.csv)) instead of manually importing a file.
 
-It's a single static web app — no install, no account, no server required.
+It's a single static web app — no install, no account, no server required. Also hosted live at **[kodhan.github.io](https://kodhan.github.io/)**.
 
 ## Quick start
 
-1. Open [`index.html`](index.html) by double-clicking it (or right-click → Open with → your browser).
-   - If your browser blocks local scripts from loading (rare, mostly older Safari), instead run a tiny local server from this folder and open `http://localhost:8000`:
+1. Open [`index.html`](index.html) by double-clicking it (or right-click → Open with → your browser) — or just visit the [hosted version](https://kodhan.github.io/).
+   - If your browser blocks local scripts from loading, or you want **📚 Load Full Library** to work locally too (it needs http/https, not a bare `file://` page), run a tiny local server from this folder and open `http://localhost:8000` instead:
      ```bash
      python -m http.server 8000
      ```
-2. Click **Load Sample Deck** to see 8 example cards, or **+ Add Card** to start your own.
+2. Click **📚 Load Full Library** for the full bundled deck, **Load Sample Deck** for 8 examples, or **+ Add Card** to start your own.
 3. Fill in **Game**, **Year**, **Studio**, and a **Music URL** (a Spotify track/album link, or a YouTube link) for each card. Notes/composer is optional and only shows on the back if you enable it.
 4. Adjust the settings bar: page size (A4/Letter), card size (poker/bridge/tarot/custom mm), duplex alignment, cut guides.
 5. Click **🖨️ Print / Save PDF**. Choose "Save as PDF" in the print dialog, or print directly to cardstock.
@@ -38,6 +40,19 @@ This is the fastest way to actually play the game yourself while you're still bu
 
 **Note on Spotify previews:** the mystery player uses Spotify's embeddable widget, which (unless you're logged into Spotify in that browser) only plays a short preview clip of each track, sometimes just 15–30 seconds — usually plenty to guess from, but if a preview is unavailable for a track Spotify will show its own "Listen on Spotify" prompt instead. YouTube links don't have this limitation and play the full video.
 
+## 📷 Scan Card (play with printed cards, Hitster-style)
+
+Click **📷 Scan Card** to use your device's camera, right in the browser, instead of your phone's regular camera app:
+
+- Opens a live camera view with a scanning frame — point it at a printed card's QR code.
+- The instant it decodes, it looks the link up against the deck currently loaded in the app and starts playing the song through the same hidden "mystery" player Play Mode uses — **no cover art, title, or artist until you hit Reveal Answer.**
+- **📷 Scan Next Card** goes back to the camera for the next physical card someone draws.
+- If a scanned code isn't in your currently-loaded deck (wrong deck loaded, or a stray QR code), it still tries to play the link, but tells you the answer isn't available rather than guessing.
+
+**Requirements:** camera access only works over **https or localhost** — it'll work fine on [the hosted site](https://kodhan.github.io/), but not if you just double-click `index.html` locally (run `python -m http.server 8000` and use `http://localhost:8000` for that). You'll also get a normal browser permission prompt for camera access the first time; allow it. Uses your rear/environment-facing camera by default on phones.
+
+QR *decoding* is handled by [`vendor/jsQR.js`](vendor/jsQR.js) (MIT-licensed, by cozmo), vendored locally like the QR generator — no external service ever sees the camera feed, it's all processed on-device in the browser.
+
 ## Playing blind (importing a deck without spoiling it for yourself)
 
 If someone else (or a helper AI) built your deck for you, turn on **🙈 Blind Mode** in the toolbar *before* you import the CSV. With it on:
@@ -48,6 +63,8 @@ If someone else (or a helper AI) built your deck for you, turn on **🙈 Blind M
 - Printed/exported PDF output is **never** blurred — the blur is purely an on-screen precaution so a physical card back is always readable once cut out.
 
 Combined with **▶ Play Mode** (which never shows cover art/title until you hit Reveal regardless of this setting), you can build, print, and play an entire deck without ever having seen the answers yourself.
+
+**⚠️ Important caveat for the hosted version:** this is a static site with no backend, so there's no real way to keep [`data/library.csv`](data/library.csv) a secret from a determined look — it's a public file at a public URL, fetchable directly or visible in the browser's Network tab. Blind Mode and Play Mode hide it from *casual, normal use of the app UI*, which is enough for it to work as a self-play game in practice — but don't go poking at dev tools or the repo's file listing if you want it to stay a surprise. Treat it like an unopened envelope: nothing stops you from opening it, the app just never hands it to you unprompted.
 
 ## Printing tips (physical cards)
 
@@ -103,10 +120,13 @@ Columns: `game,year,studio,url,notes`. Import via **Import CSV** (appends to you
 ## File structure
 
 ```
-index.html      – app shell / layout
-style.css       – styling + print stylesheet + Play Mode overlay
-app.js          – all app logic (data, QR generation, layout, print, Play Mode)
+index.html       – app shell / layout
+style.css        – styling + print stylesheet + Play Mode overlay
+app.js           – all app logic (data, QR generation, layout, print, Play Mode)
 vendor/qrcode.js – vendored MIT-licensed QR code generator (offline, no CDN)
+vendor/jsQR.js   – vendored MIT-licensed QR code reader, used by 📷 Scan Card
+data/library.csv – bundled full deck, loaded via 📚 Load Full Library (committed to the repo — see the caveat above)
+decks/           – working/scratch CSVs (git-ignored — never published, for local-only decks you don't want public)
 ```
 
 *If you edit `app.js`/`style.css` yourself and your browser doesn't seem to pick up the change, do a hard refresh (Ctrl+Shift+R) — browsers can aggressively cache local files.*

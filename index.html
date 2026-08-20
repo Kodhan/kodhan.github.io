@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>VGM Trivia Card Maker</title>
-<link rel="stylesheet" href="style.css?v=4">
+<link rel="stylesheet" href="style.css?v=5">
 </head>
 <body>
 
@@ -19,6 +19,7 @@
     <div class="toolbar-group">
       <button id="btnAddCard">+ Add Card</button>
       <button id="btnLoadSample">Load Sample Deck</button>
+      <button id="btnLoadLibrary" class="primary">📚 Load Full Library</button>
       <button id="btnClearAll" class="danger">Clear All</button>
     </div>
     <div class="toolbar-group">
@@ -36,6 +37,7 @@
     </div>
     <div class="toolbar-group">
       <button id="btnPlayMode" class="primary">▶ Play Mode</button>
+      <button id="btnScanMode" class="primary" title="Scan a printed card's QR code with your camera and play it here, answer hidden until you reveal it — needs https or localhost.">📷 Scan Card</button>
       <button id="btnPrint">🖨️ Print / Save PDF</button>
     </div>
   </div>
@@ -108,6 +110,14 @@
     <div class="play-card">
       <button id="playClose" class="play-close" title="Close (Esc)">✕</button>
       <div class="play-progress" id="playProgress">1 / 1</div>
+      <div class="play-camera" id="playCameraWrap">
+        <div class="play-camera-viewport">
+          <video id="playCameraVideo" playsinline autoplay muted></video>
+          <div class="play-camera-frame"></div>
+        </div>
+        <div class="play-camera-hint" id="playCameraHint">Point your camera at a card's QR code…</div>
+        <button id="playCameraCancel" type="button">Cancel</button>
+      </div>
       <div class="play-embed" id="playEmbed">
         <div class="play-mystery hidden" id="playMystery">
           <div class="play-mystery-icon" id="playMysteryIcon">🎵</div>
@@ -147,6 +157,7 @@
 </div>
 
 <script src="vendor/qrcode.js"></script>
-<script src="app.js?v=4"></script>
+<script src="vendor/jsQR.js"></script>
+<script src="app.js?v=6"></script>
 </body>
 </html>
