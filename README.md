@@ -8,6 +8,7 @@ A print-and-play card generator for your video-game-music guessing board game:
 - **📷 Scan Card:** use your phone's camera *in the browser* to scan a printed card's QR code — like Hitster's app. It plays the song immediately, answer hidden, no need to switch to your camera app.
 - **🙈 Blind Mode:** blurs Game/Year/Studio/Notes everywhere on screen (the data table *and* the Backs print preview) so you can import/manage a big deck without spoiling it for yourself. Printed/PDF output is never blurred. **On by default.**
 - **📚 Load Full Library:** one click to load the bundled full deck ([`data/library.csv`](data/library.csv)) instead of manually importing a file.
+- **🎧 Connect Spotify:** log in with a Spotify Premium account so tracks play in full instead of Spotify's default 30-second preview.
 
 It's a single static web app — no install, no account, no server required. Also hosted live at **[kodhan.github.io](https://kodhan.github.io/)**.
 
@@ -52,6 +53,24 @@ Click **📷 Scan Card** to use your device's camera, right in the browser, inst
 **Requirements:** camera access only works over **https or localhost** — it'll work fine on [the hosted site](https://kodhan.github.io/), but not if you just double-click `index.html` locally (run `python -m http.server 8000` and use `http://localhost:8000` for that). You'll also get a normal browser permission prompt for camera access the first time; allow it. Uses your rear/environment-facing camera by default on phones.
 
 QR *decoding* is handled by [`vendor/jsQR.js`](vendor/jsQR.js) (MIT-licensed, by cozmo), vendored locally like the QR generator — no external service ever sees the camera feed, it's all processed on-device in the browser.
+
+## 🎧 Connect Spotify (play full songs, not 30s previews)
+
+By default, Spotify tracks (whether from the QR code, Play Mode, or Scan Card) only play a short preview clip — that's Spotify's own restriction for anyone who isn't logged in with Premium in that browser session, not a limitation of this app. **Connect Spotify** fixes that using Spotify's official login (OAuth) and Web Playback SDK, which plays full tracks by turning your browser tab into a real Spotify Connect device.
+
+**Requirements:** a Spotify **Premium** subscription (hard requirement from Spotify — free accounts get an error, not a workaround) and a few minutes of one-time setup.
+
+**Setup** (click **🎧 Connect Spotify** in the app — it walks you through the same steps):
+1. Open [developer.spotify.com/dashboard](https://developer.spotify.com/dashboard) and log in with your normal Spotify account (this dashboard is free, no separate account needed).
+2. **Create app** — any name/description works.
+3. In **Redirect URIs**, add the exact URL the app shows you (e.g. `https://kodhan.github.io/`) and click **Add**.
+4. Tick **Web Playback SDK** and **Web API**, then **Save**.
+5. Open the app's **Settings**, copy the **Client ID**, paste it into the app when prompted.
+6. Click through Spotify's login/consent screen. You're connected — this only needs to happen once per browser/device (it stays logged in via a refresh token stored in localStorage).
+
+**Why this helps on iOS specifically:** tapping any `open.spotify.com` link on iOS normally bounces you into the Spotify app instead of staying in the browser (Apple's Universal Links), and even when you do reach the Spotify website, Safari's cross-site tracking protection usually blocks that login from being visible to an embedded player anyway. This feature sidesteps both problems — it's a real OAuth login with a token this app controls directly, not something relying on ambient browser cookies.
+
+**What if you don't have Premium, or don't want to bother?** Everything else still works exactly as before — QR codes and Play Mode fall back to the normal 30-second preview automatically, no errors, nothing broken. For songs where the preview cuts off before it's guessable, using a **YouTube** link instead (which always plays the full video, no login needed) is the simpler fix — see the coverage notes below.
 
 ## Playing blind (importing a deck without spoiling it for yourself)
 

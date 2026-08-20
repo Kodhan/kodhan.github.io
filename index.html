@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>VGM Trivia Card Maker</title>
-<link rel="stylesheet" href="style.css?v=5">
+<link rel="stylesheet" href="style.css?v=6">
 </head>
 <body>
 
@@ -34,6 +34,9 @@
       <label class="checkbox blind-toggle" title="Blurs Game/Year/Studio/Notes everywhere on screen, so you can manage a deck without spoiling it for yourself. Printed/PDF output is never blurred.">
         <input type="checkbox" id="setBlindMode"> 🙈 Blind Mode
       </label>
+    </div>
+    <div class="toolbar-group">
+      <button id="btnSpotifyConnect" title="Log in with your Spotify Premium account so tracks play in full instead of a 30-second preview.">🎧 Connect Spotify</button>
     </div>
     <div class="toolbar-group">
       <button id="btnPlayMode" class="primary">▶ Play Mode</button>
@@ -150,6 +153,24 @@
     </div>
   </div>
 
+  <div id="spotifySetupOverlay" class="play-overlay hidden no-print">
+    <div class="play-card">
+      <button id="spotifySetupClose" class="play-close" title="Close">✕</button>
+      <h3>🎧 Connect Spotify for full songs</h3>
+      <p class="spotify-setup-intro">Without this, Spotify tracks only ever play a ~30-second preview — that's Spotify's own rule for anyone not logged in with Premium, not something this app controls. Connecting fixes that. Needs a <strong>free</strong> Spotify Developer account (separate from your regular login) and <strong>Spotify Premium</strong> to actually hear full tracks.</p>
+      <ol class="spotify-setup-steps">
+        <li>Open <a href="https://developer.spotify.com/dashboard" target="_blank" rel="noopener">developer.spotify.com/dashboard</a> and log in with your normal Spotify account.</li>
+        <li>Click <strong>Create app</strong>. Any name/description works.</li>
+        <li>In <strong>Redirect URIs</strong>, add exactly this, then click <strong>Add</strong>:<br><code id="spotifyRedirectUriDisplay">…</code></li>
+        <li>Tick <strong>Web Playback SDK</strong> and <strong>Web API</strong> under "Which API/SDKs are you planning to use?", then <strong>Save</strong>.</li>
+        <li>Open the new app's <strong>Settings</strong>, copy the <strong>Client ID</strong>, and paste it below.</li>
+      </ol>
+      <input type="text" id="spotifyClientIdInput" placeholder="Paste your Spotify Client ID">
+      <button id="spotifyClientIdSave" class="primary">Save &amp; Connect</button>
+      <p class="spotify-setup-note">Stored only in this browser (localStorage) — never sent anywhere except Spotify's own login page. You only need to do this setup once per browser/device.</p>
+    </div>
+  </div>
+
   <footer class="no-print">
     <p>Data is auto-saved in this browser (localStorage). Use <strong>Export CSV</strong> to keep a permanent backup. See <a href="README.md" target="_blank">README.md</a> for the Spotify-vs-YouTube coverage notes and printing tips.</p>
   </footer>
@@ -158,6 +179,6 @@
 
 <script src="vendor/qrcode.js"></script>
 <script src="vendor/jsQR.js"></script>
-<script src="app.js?v=6"></script>
+<script src="app.js?v=7"></script>
 </body>
 </html>

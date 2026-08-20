@@ -211,6 +211,10 @@ footer a{color:var(--accent);}
   text-decoration:none;
 }
 .play-openlink:hover{text-decoration:underline;}
+.play-full-badge{
+  display:block;text-align:center;margin-top:8px;font-size:0.82rem;font-weight:700;
+  color:var(--spotify);
+}
 .play-nolink{
   padding:30px 10px;text-align:center;color:var(--muted);background:#f7f7fa;
   border-radius:12px;font-size:0.9rem;
@@ -233,6 +237,24 @@ footer a{color:var(--accent);}
   flex-wrap:wrap;gap:10px;font-size:0.85rem;
 }
 .play-hint{margin-top:10px;text-align:center;font-size:0.72rem;color:var(--muted);}
+
+/* ---- Spotify Connect button + setup overlay ---- */
+#btnSpotifyConnect.connected{border-color:var(--spotify);color:var(--spotify);}
+
+#spotifySetupOverlay .play-card{max-width:520px;}
+#spotifySetupOverlay h3{margin:0 22px 10px 0;font-size:1.1rem;}
+.spotify-setup-intro{font-size:0.85rem;color:var(--muted);line-height:1.5;margin:0 0 14px;}
+.spotify-setup-steps{font-size:0.85rem;line-height:1.6;padding-left:20px;margin:0 0 16px;}
+.spotify-setup-steps code{
+  display:inline-block;margin-top:3px;background:#f2f2f7;border:1px solid var(--line);
+  border-radius:6px;padding:3px 8px;font-size:0.8rem;word-break:break-all;
+}
+#spotifyClientIdInput{
+  width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:8px;
+  font-size:0.9rem;margin-bottom:10px;
+}
+#spotifyClientIdSave{width:100%;}
+.spotify-setup-note{font-size:0.72rem;color:var(--muted);margin:10px 0 0;line-height:1.4;}
 
 /* ---------- Blind mode ---------- */
 /* Blurs the spoiler-y fields (game/year/studio/notes) everywhere on screen —

@@ -245,6 +245,8 @@ function cacheEls() {
     'playMystery', 'playMysteryIcon', 'playMysteryToggle', 'playProgressBar',
     'playTimeLabel', 'playWidgetHost', 'playNolink', 'playOpenLinkWrap',
     'playCameraWrap', 'playCameraVideo', 'playCameraHint', 'playCameraCancel',
+    'btnSpotifyConnect', 'spotifySetupOverlay', 'spotifySetupClose',
+    'spotifyRedirectUriDisplay', 'spotifyClientIdInput', 'spotifyClientIdSave',
   ].forEach(id => { els[id] = document.getElementById(id); });
 }
 
@@ -525,6 +527,256 @@ function loadYoutubeIframeApi() {
   return youtubeApiPromise;
 }
 
+/* ---------------------------------------------------------------------- */
+/* Spotify Connect: real login (OAuth + PKCE) + Web Playback SDK.         */
+/* Without this, Spotify tracks only ever play a ~30s preview (Spotify's  */
+/* own restriction for logged-out/non-Premium sessions). Logging in here */
+/* lets a Premium account's browser tab become a real playback device,   */
+/* so full songs play — this sidesteps iOS Safari's habit of blocking    */
+/* third-party cookies for the plain embed, since it's token-based, not  */
+/* cookie-based.                                                         */
+/* ---------------------------------------------------------------------- */
+
+const SPOTIFY_CLIENT_ID_KEY = 'vgmSpotifyClientId';
+const SPOTIFY_TOKEN_KEY = 'vgmSpotifyTokens';
+const SPOTIFY_SCOPES = 'streaming user-read-email user-read-private user-modify-playback-state user-read-playback-state';
+
+let spotifyPlayer = null;
+let spotifyDeviceId = null;
+let spotifySdkPromise = null;
+
+function spotifyRedirectUri() {
+  return location.origin + location.pathname;
+}
+function getSpotifyClientId() {
+  try { return localStorage.getItem(SPOTIFY_CLIENT_ID_KEY) || ''; } catch (e) { return ''; }
+}
+function getSpotifyTokens() {
+  try { return JSON.parse(localStorage.getItem(SPOTIFY_TOKEN_KEY) || 'null'); } catch (e) { return null; }
+}
+function storeSpotifyTokens(data) {
+  const prev = getSpotifyTokens();
+  const record = {
+    access_token: data.access_token,
+    refresh_token: data.refresh_token || (prev && prev.refresh_token) || null,
+    expires_at: Date.now() + (data.expires_in * 1000) - 60000, // refresh a minute early
+  };
+  try { localStorage.setItem(SPOTIFY_TOKEN_KEY, JSON.stringify(record)); } catch (e) {}
+}
+function clearSpotifyTokens() {
+  try { localStorage.removeItem(SPOTIFY_TOKEN_KEY); } catch (e) {}
+}
+
+function randomString(length) {
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  const values = crypto.getRandomValues(new Uint8Array(length));
+  let out = '';
+  values.forEach((v) => { out += chars[v % chars.length]; });
+  return out;
+}
+function base64UrlEncode(bytes) {
+  let str = '';
+  new Uint8Array(bytes).forEach((b) => { str += String.fromCharCode(b); });
+  return btoa(str).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+}
+async function pkceCodeChallenge(verifier) {
+  const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(verifier));
+  return base64UrlEncode(digest);
+}
+
+async function startSpotifyLogin() {
+  const clientId = getSpotifyClientId();
+  if (!clientId) { openSpotifySetup(); return; }
+
+  const verifier = randomString(64);
+  const state = randomString(16);
+  sessionStorage.setItem('spotify_pkce_verifier', verifier);
+  sessionStorage.setItem('spotify_oauth_state', state);
+  const challenge = await pkceCodeChallenge(verifier);
+
+  const params = new URLSearchParams({
+    response_type: 'code',
+    client_id: clientId,
+    scope: SPOTIFY_SCOPES,
+    redirect_uri: spotifyRedirectUri(),
+    code_challenge_method: 'S256',
+    code_challenge: challenge,
+    state,
+  });
+  location.href = 'https://accounts.spotify.com/authorize?' + params.toString();
+}
+
+async function handleSpotifyRedirect() {
+  const params = new URLSearchParams(location.search);
+  const code = params.get('code');
+  const error = params.get('error');
+  const returnedState = params.get('state');
+  if (!code && !error) return;
+
+  history.replaceState({}, '', location.pathname); // strip the OAuth params from the URL either way
+
+  if (error) { alert('Spotify login was cancelled or failed: ' + error); return; }
+
+  const expectedState = sessionStorage.getItem('spotify_oauth_state');
+  const verifier = sessionStorage.getItem('spotify_pkce_verifier');
+  sessionStorage.removeItem('spotify_oauth_state');
+  sessionStorage.removeItem('spotify_pkce_verifier');
+  if (!verifier || returnedState !== expectedState) {
+    alert("Spotify login couldn't be verified — please try connecting again.");
+    return;
+  }
+
+  const clientId = getSpotifyClientId();
+  try {
+    const res = await fetch('https://accounts.spotify.com/api/token', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({
+        grant_type: 'authorization_code',
+        code,
+        redirect_uri: spotifyRedirectUri(),
+        client_id: clientId,
+        code_verifier: verifier,
+      }),
+    });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    storeSpotifyTokens(await res.json());
+    updateSpotifyConnectUi();
+    initSpotifyPlayer();
+  } catch (e) {
+    alert("Couldn't finish connecting to Spotify: " + e.message);
+  }
+}
+
+async function getValidSpotifyAccessToken() {
+  const tokens = getSpotifyTokens();
+  if (!tokens) return null;
+  if (Date.now() < tokens.expires_at) return tokens.access_token;
+  if (!tokens.refresh_token) { clearSpotifyTokens(); return null; }
+
+  try {
+    const res = await fetch('https://accounts.spotify.com/api/token', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({
+        grant_type: 'refresh_token',
+        refresh_token: tokens.refresh_token,
+        client_id: getSpotifyClientId(),
+      }),
+    });
+    if (!res.ok) throw new Error('refresh failed');
+    const data = await res.json();
+    storeSpotifyTokens(data);
+    return data.access_token;
+  } catch (e) {
+    clearSpotifyTokens();
+    return null;
+  }
+}
+
+function loadSpotifySdk() {
+  if (!spotifySdkPromise) {
+    spotifySdkPromise = new Promise((resolve) => {
+      if (window.Spotify && window.Spotify.Player) { resolve(); return; }
+      window.onSpotifyWebPlaybackSDKReady = () => resolve();
+      const script = document.createElement('script');
+      script.src = 'https://sdk.scdn.co/spotify-player.js';
+      script.async = true;
+      document.head.appendChild(script);
+    });
+  }
+  return spotifySdkPromise;
+}
+
+async function initSpotifyPlayer() {
+  if (spotifyPlayer) return; // already initialized this session
+  const token = await getValidSpotifyAccessToken();
+  if (!token) return;
+
+  await loadSpotifySdk();
+  if (spotifyPlayer) return;
+
+  spotifyPlayer = new Spotify.Player({
+    name: 'VGM Trivia Card Maker',
+    getOAuthToken: async (cb) => { cb((await getValidSpotifyAccessToken()) || ''); },
+    volume: 0.85,
+  });
+  spotifyPlayer.addListener('ready', ({ device_id }) => { spotifyDeviceId = device_id; });
+  spotifyPlayer.addListener('not_ready', () => { spotifyDeviceId = null; });
+  spotifyPlayer.addListener('player_state_changed', (s) => {
+    if (!s || currentControllerType !== 'spotify-sdk') return;
+    setMysteryPlaying(!s.paused);
+    updateProgressUi(s.position / 1000, s.duration / 1000);
+  });
+  spotifyPlayer.addListener('authentication_error', () => { clearSpotifyTokens(); updateSpotifyConnectUi(); });
+  spotifyPlayer.addListener('account_error', () => {
+    alert('Spotify playback needs a Premium account. Falling back to 30-second previews.');
+    clearSpotifyTokens();
+    spotifyPlayer = null;
+    spotifyDeviceId = null;
+    updateSpotifyConnectUi();
+  });
+  await spotifyPlayer.connect();
+}
+
+async function playSpotifyTrackViaSdk(trackId) {
+  const token = await getValidSpotifyAccessToken();
+  if (!token || !spotifyDeviceId) throw new Error('Spotify player is not ready yet');
+  const res = await fetch(`https://api.spotify.com/v1/me/player/play?device_id=${spotifyDeviceId}`, {
+    method: 'PUT',
+    headers: { Authorization: 'Bearer ' + token, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ uris: [`spotify:track:${trackId}`] }),
+  });
+  if (!res.ok && res.status !== 204) throw new Error('Spotify playback request failed (' + res.status + ')');
+}
+
+function isSpotifyConnected() {
+  return !!getSpotifyTokens();
+}
+
+function updateSpotifyConnectUi() {
+  const connected = isSpotifyConnected();
+  els.btnSpotifyConnect.textContent = connected ? '✅ Spotify Connected' : '🎧 Connect Spotify';
+  els.btnSpotifyConnect.classList.toggle('connected', connected);
+}
+
+function openSpotifySetup() {
+  els.spotifyRedirectUriDisplay.textContent = spotifyRedirectUri();
+  els.spotifyClientIdInput.value = getSpotifyClientId();
+  els.spotifySetupOverlay.classList.remove('hidden');
+}
+function closeSpotifySetup() {
+  els.spotifySetupOverlay.classList.add('hidden');
+}
+
+function wireSpotifyConnect() {
+  els.btnSpotifyConnect.addEventListener('click', () => {
+    if (isSpotifyConnected()) {
+      if (confirm('Disconnect Spotify? Tracks will fall back to 30-second previews.')) {
+        clearSpotifyTokens();
+        if (spotifyPlayer) { try { spotifyPlayer.disconnect(); } catch (e) {} }
+        spotifyPlayer = null;
+        spotifyDeviceId = null;
+        updateSpotifyConnectUi();
+      }
+      return;
+    }
+    if (!getSpotifyClientId()) { openSpotifySetup(); return; }
+    startSpotifyLogin();
+  });
+  els.spotifySetupClose.addEventListener('click', closeSpotifySetup);
+  els.spotifySetupOverlay.addEventListener('click', (e) => {
+    if (e.target === els.spotifySetupOverlay) closeSpotifySetup();
+  });
+  els.spotifyClientIdSave.addEventListener('click', () => {
+    const val = els.spotifyClientIdInput.value.trim();
+    if (!val) return;
+    try { localStorage.setItem(SPOTIFY_CLIENT_ID_KEY, val); } catch (e) {}
+    closeSpotifySetup();
+    startSpotifyLogin();
+  });
+}
+
 function formatTime(seconds) {
   if (!isFinite(seconds) || seconds < 0) seconds = 0;
   const m = Math.floor(seconds / 60);
@@ -550,8 +802,11 @@ function teardownPlayer() {
   if (currentController && currentControllerType === 'youtube') {
     try { currentController.destroy(); } catch (e) { /* already gone */ }
   }
-  // Spotify controllers are torn down simply by clearing their mount's
-  // innerHTML below, which removes the underlying iframe.
+  if (currentControllerType === 'spotify-sdk' && spotifyPlayer) {
+    try { spotifyPlayer.pause(); } catch (e) {} // the SDK device stays connected across tracks; just stop it
+  }
+  // Iframe-based Spotify controllers are torn down simply by clearing their
+  // mount's innerHTML below, which removes the underlying iframe.
   currentController = null;
   currentControllerType = null;
   els.playProgressBar.value = 0;
@@ -695,6 +950,30 @@ function onQrScanned(text) {
   els.playNext.textContent = '📷 Scan Next Card';
 }
 
+async function renderSpotifyIframeEmbed(trackId, myRequest, cardUrl) {
+  // Fallback path: plain embed, ~30s preview for anyone not connected via
+  // Spotify Connect (or not Premium).
+  els.playOpenLinkWrap.innerHTML = `<a class="play-openlink" href="${escapeHtml(cardUrl)}" target="_blank" rel="noopener">Open in Spotify ↗</a>`;
+
+  const IFrameAPI = await loadSpotifyIframeApi();
+  if (myRequest !== embedRequestId) return;
+
+  const mount = document.createElement('div');
+  els.playWidgetHost.innerHTML = '';
+  els.playWidgetHost.appendChild(mount);
+  IFrameAPI.createController(mount, { uri: `spotify:track:${trackId}`, width: '100%', height: '152' }, (controller) => {
+    if (myRequest !== embedRequestId) { try { controller.pause(); } catch (e) {} return; }
+    currentController = controller;
+    currentControllerType = 'spotify';
+    controller.addListener('ready', () => { try { controller.play(); } catch (e) {} });
+    controller.addListener('playback_update', (e) => {
+      const { position, duration, isPaused } = e.data;
+      setMysteryPlaying(!isPaused);
+      updateProgressUi((position || 0) / 1000, (duration || 0) / 1000);
+    });
+  });
+}
+
 async function renderPlayEmbed(card) {
   teardownPlayer();
   const myRequest = ++embedRequestId;
@@ -707,26 +986,31 @@ async function renderPlayEmbed(card) {
 
   if (info.type === 'spotify' && info.embed) {
     els.playMystery.classList.remove('hidden');
-    els.playOpenLinkWrap.innerHTML = `<a class="play-openlink" href="${escapeHtml(card.url)}" target="_blank" rel="noopener">Open in Spotify ↗</a>`;
     const trackId = (card.url.match(/track[/:]([a-zA-Z0-9]{10,})/) || [])[1];
     if (!trackId) return;
 
-    const IFrameAPI = await loadSpotifyIframeApi();
-    if (myRequest !== embedRequestId) return; // a newer card was requested meanwhile
+    if (isSpotifyConnected()) {
+      // Make sure the SDK device is (or becomes) ready, then route playback to it for the full track.
+      if (!spotifyDeviceId) await initSpotifyPlayer();
+      if (myRequest !== embedRequestId) return;
 
-    const mount = document.createElement('div');
-    els.playWidgetHost.appendChild(mount);
-    IFrameAPI.createController(mount, { uri: `spotify:track:${trackId}`, width: '100%', height: '152' }, (controller) => {
-      if (myRequest !== embedRequestId) { try { controller.pause(); } catch (e) {} return; }
-      currentController = controller;
-      currentControllerType = 'spotify';
-      controller.addListener('ready', () => { try { controller.play(); } catch (e) {} });
-      controller.addListener('playback_update', (e) => {
-        const { position, duration, isPaused } = e.data;
-        setMysteryPlaying(!isPaused);
-        updateProgressUi((position || 0) / 1000, (duration || 0) / 1000);
-      });
-    });
+      if (spotifyDeviceId) {
+        currentControllerType = 'spotify-sdk';
+        currentController = spotifyPlayer;
+        els.playOpenLinkWrap.innerHTML = '<span class="play-full-badge">🎧 Full song via your Spotify account</span>';
+        try {
+          await playSpotifyTrackViaSdk(trackId);
+        } catch (e) {
+          if (myRequest !== embedRequestId) return;
+          currentControllerType = null;
+          currentController = null;
+          await renderSpotifyIframeEmbed(trackId, myRequest, card.url); // graceful fallback to preview
+        }
+        return;
+      }
+    }
+
+    await renderSpotifyIframeEmbed(trackId, myRequest, card.url);
   } else if (info.type === 'youtube' && info.embed) {
     els.playMystery.classList.remove('hidden');
     els.playOpenLinkWrap.innerHTML = `<a class="play-openlink" href="${escapeHtml(card.url)}" target="_blank" rel="noopener">Open in YouTube ↗</a>`;
@@ -771,7 +1055,7 @@ async function renderPlayEmbed(card) {
 
 function toggleMysteryPlayback() {
   if (!currentController) return;
-  if (currentControllerType === 'spotify') {
+  if (currentControllerType === 'spotify' || currentControllerType === 'spotify-sdk') {
     currentController.togglePlay();
   } else if (currentControllerType === 'youtube' && window.YT) {
     const state = currentController.getPlayerState();
@@ -783,6 +1067,7 @@ function toggleMysteryPlayback() {
 function seekTo(seconds) {
   if (!currentController) return;
   if (currentControllerType === 'spotify') currentController.seek(seconds);
+  else if (currentControllerType === 'spotify-sdk') currentController.seek(seconds * 1000); // SDK wants milliseconds
   else if (currentControllerType === 'youtube') currentController.seekTo(seconds, true);
 }
 
@@ -1016,6 +1301,7 @@ function init() {
   wireSettings();
   wireToolbar();
   wirePlayMode();
+  wireSpotifyConnect();
   renderTable();
   renderPreview();
 
@@ -1026,6 +1312,10 @@ function init() {
     renderTable();
     renderPreview();
   }
+
+  updateSpotifyConnectUi();
+  handleSpotifyRedirect(); // completes login if we just got bounced back from accounts.spotify.com
+  if (isSpotifyConnected()) initSpotifyPlayer(); // reconnect proactively on returning visits
 }
 
 if (document.readyState === 'loading') {
