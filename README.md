@@ -58,19 +58,15 @@ QR *decoding* is handled by [`vendor/jsQR.js`](vendor/jsQR.js) (MIT-licensed, by
 
 By default, Spotify tracks (whether from the QR code, Play Mode, or Scan Card) only play a short preview clip — that's Spotify's own restriction for anyone who isn't logged in with Premium in that browser session, not a limitation of this app. **Connect Spotify** fixes that using Spotify's official login (OAuth) and Web Playback SDK, which plays full tracks by turning your browser tab into a real Spotify Connect device.
 
-**Requirements:** a Spotify **Premium** subscription (hard requirement from Spotify — free accounts get an error, not a workaround) and a few minutes of one-time setup.
+**For most people, this is one tap:** click **🎧 Connect Spotify**, log in with your own Spotify account, done. This deployment already has a Spotify Developer app registered and its Client ID baked in (Client IDs aren't secret — that's the point of the PKCE login flow used here, no password or secret ever touches this app). Each person authenticates with **their own** account and needs **their own Premium subscription** for full playback — connecting doesn't grant access to anyone else's account or affect anyone else's login.
 
-**Setup** (click **🎧 Connect Spotify** in the app — it walks you through the same steps):
-1. Open [developer.spotify.com/dashboard](https://developer.spotify.com/dashboard) and log in with your normal Spotify account (this dashboard is free, no separate account needed).
-2. **Create app** — any name/description works.
-3. In **Redirect URIs**, add the exact URL the app shows you (e.g. `https://kodhan.github.io/`) and click **Add**.
-4. Tick **Web Playback SDK** and **Web API**, then **Save**.
-5. Open the app's **Settings**, copy the **Client ID**, paste it into the app when prompted.
-6. Click through Spotify's login/consent screen. You're connected — this only needs to happen once per browser/device (it stays logged in via a refresh token stored in localStorage).
+**One catch — Spotify's "Development Mode" user cap:** new Spotify apps are limited to 25 explicitly-approved users until the developer requests wider access from Spotify. If a friend's login gets rejected, that's this, not a bug — the app owner needs to add their Spotify account email in [developer.spotify.com/dashboard](https://developer.spotify.com/dashboard) → the app → **Settings → User Management**, then they can log in normally. This is quick per person but isn't automatic.
 
 **Why this helps on iOS specifically:** tapping any `open.spotify.com` link on iOS normally bounces you into the Spotify app instead of staying in the browser (Apple's Universal Links), and even when you do reach the Spotify website, Safari's cross-site tracking protection usually blocks that login from being visible to an embedded player anyway. This feature sidesteps both problems — it's a real OAuth login with a token this app controls directly, not something relying on ambient browser cookies.
 
-**What if you don't have Premium, or don't want to bother?** Everything else still works exactly as before — QR codes and Play Mode fall back to the normal 30-second preview automatically, no errors, nothing broken. For songs where the preview cuts off before it's guessable, using a **YouTube** link instead (which always plays the full video, no login needed) is the simpler fix — see the coverage notes below.
+**What if you don't have Premium, or aren't on the approved-users list?** Everything else still works exactly as before — QR codes and Play Mode fall back to the normal 30-second preview automatically, no errors, nothing broken. For songs where the preview cuts off before it's guessable, using a **YouTube** link instead (which always plays the full video, no login needed) is the simpler fix — see the coverage notes below.
+
+**Hosting your own copy of this project?** Click the small **⚙** button next to Connect Spotify to register and use your own Spotify Developer app instead of this deployment's default one — same setup steps as above (create an app, add your deployment's URL as the Redirect URI, tick Web Playback SDK + Web API, paste in the Client ID).
 
 ## Playing blind (importing a deck without spoiling it for yourself)
 

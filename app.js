@@ -245,8 +245,8 @@ function cacheEls() {
     'playMystery', 'playMysteryIcon', 'playMysteryToggle', 'playProgressBar',
     'playTimeLabel', 'playWidgetHost', 'playNolink', 'playOpenLinkWrap',
     'playCameraWrap', 'playCameraVideo', 'playCameraHint', 'playCameraCancel',
-    'btnSpotifyConnect', 'spotifySetupOverlay', 'spotifySetupClose',
-    'spotifyRedirectUriDisplay', 'spotifyClientIdInput', 'spotifyClientIdSave',
+    'btnSpotifyConnect', 'btnSpotifySettings', 'spotifySetupOverlay', 'spotifySetupClose',
+    'spotifyRedirectUriDisplay', 'spotifyClientIdInput', 'spotifyClientIdSave', 'spotifyClientIdReset',
   ].forEach(id => { els[id] = document.getElementById(id); });
 }
 
@@ -541,6 +541,13 @@ const SPOTIFY_CLIENT_ID_KEY = 'vgmSpotifyClientId';
 const SPOTIFY_TOKEN_KEY = 'vgmSpotifyTokens';
 const SPOTIFY_SCOPES = 'streaming user-read-email user-read-private user-modify-playback-state user-read-playback-state';
 
+// Default Client ID for this deployment's own Spotify app, so visitors can
+// hit "Connect Spotify" and go straight to login with their own account -
+// no manual setup needed. Not a secret: PKCE means no client secret is ever
+// used, so it's normal/safe for a Client ID to be public. A visitor can
+// still override it via the setup screen to use their own Spotify app.
+const DEFAULT_SPOTIFY_CLIENT_ID = '72e66e58fee94579bcbcb828962b1862';
+
 let spotifyPlayer = null;
 let spotifyDeviceId = null;
 let spotifySdkPromise = null;
@@ -549,7 +556,14 @@ function spotifyRedirectUri() {
   return location.origin + location.pathname;
 }
 function getSpotifyClientId() {
-  try { return localStorage.getItem(SPOTIFY_CLIENT_ID_KEY) || ''; } catch (e) { return ''; }
+  try {
+    const stored = localStorage.getItem(SPOTIFY_CLIENT_ID_KEY);
+    if (stored) return stored;
+  } catch (e) {}
+  return DEFAULT_SPOTIFY_CLIENT_ID;
+}
+function hasCustomSpotifyClientId() {
+  try { return !!localStorage.getItem(SPOTIFY_CLIENT_ID_KEY); } catch (e) { return false; }
 }
 function getSpotifyTokens() {
   try { return JSON.parse(localStorage.getItem(SPOTIFY_TOKEN_KEY) || 'null'); } catch (e) { return null; }
@@ -742,7 +756,7 @@ function updateSpotifyConnectUi() {
 
 function openSpotifySetup() {
   els.spotifyRedirectUriDisplay.textContent = spotifyRedirectUri();
-  els.spotifyClientIdInput.value = getSpotifyClientId();
+  els.spotifyClientIdInput.value = hasCustomSpotifyClientId() ? getSpotifyClientId() : '';
   els.spotifySetupOverlay.classList.remove('hidden');
 }
 function closeSpotifySetup() {
@@ -761,9 +775,9 @@ function wireSpotifyConnect() {
       }
       return;
     }
-    if (!getSpotifyClientId()) { openSpotifySetup(); return; }
-    startSpotifyLogin();
+    startSpotifyLogin(); // uses the baked-in Client ID unless a custom one was saved via ⚙
   });
+  els.btnSpotifySettings.addEventListener('click', openSpotifySetup);
   els.spotifySetupClose.addEventListener('click', closeSpotifySetup);
   els.spotifySetupOverlay.addEventListener('click', (e) => {
     if (e.target === els.spotifySetupOverlay) closeSpotifySetup();
@@ -774,6 +788,10 @@ function wireSpotifyConnect() {
     try { localStorage.setItem(SPOTIFY_CLIENT_ID_KEY, val); } catch (e) {}
     closeSpotifySetup();
     startSpotifyLogin();
+  });
+  els.spotifyClientIdReset.addEventListener('click', () => {
+    try { localStorage.removeItem(SPOTIFY_CLIENT_ID_KEY); } catch (e) {}
+    els.spotifyClientIdInput.value = DEFAULT_SPOTIFY_CLIENT_ID;
   });
 }
 
