@@ -1,101 +1,151 @@
-game,year,studio,url,notes
-Mega Man 2,1988,Capcom,https://open.spotify.com/track/7ByLWFAk0DTGt6xxD2h6BK,"Takashi Tateishi — ""Dr. Wily Castle Stage 1"" (cover, official OST not on Spotify)"
-Castlevania,1986,Konami,https://open.spotify.com/track/20vvX4Iy4ITRBKd0dZCNf2,"Kinuyo Yamashita — ""Vampire Killer"" (guitar cover, official OST not on Spotify)"
-Metroid,1986,Nintendo R&D1,https://open.spotify.com/track/6Zqe7qNzi5a7dSnn4BJ541,"Hirokazu Tanaka — ""Brinstar"" (arrangement/cover, official OST not on Spotify)"
-Sonic the Hedgehog 2,1992,Sonic Team,https://open.spotify.com/track/19jLU2y3ZoD4WCYqOn9rwR,"Masato Nakamura — ""Chemical Plant Zone"" (cover, official OST not on Spotify)"
-Street Fighter II,1991,Capcom,https://open.spotify.com/track/29drzlJamuYPBRh1LPpXM4,"Capcom Sound Team — ""Guile's Theme"" (official OST)"
-Chrono Trigger,1995,Square,https://open.spotify.com/track/1kl6jzl9h38pjzALrPYvq3,"Yasunori Mitsuda — ""Corridors of Time"" (official OST)"
-EarthBound,1994,Ape Inc. / HAL Laboratory,https://open.spotify.com/track/3RMhetGH2tDP3wO8SvqRyC,"Keiichi Suzuki & Hirokazu Tanaka — ""Eight Melodies"" (official reissue, composer-released)"
-Final Fantasy VI,1994,Square,https://open.spotify.com/track/0WHMHuO5JPzJ8IZVjv3TL6,"Nobuo Uematsu — ""Terra's Theme"" (official orchestral arrangement, Distant Worlds II)"
-Doom,1993,id Software,https://open.spotify.com/track/7wS7Y4pCfwTRT3Wh0mbiNt,"Bobby Prince — ""At Doom's Gate"" (official OST)"
-GoldenEye 007,1997,Rare,https://open.spotify.com/track/5wrKXGwxB0ndi7N5TecJ3M,"Grant Kirkhope, Graeme Norgate & Robin Beanland — ""Facility"" (cover, official OST not on Spotify)"
-Silent Hill,1999,Konami Computer Entertainment Tokyo,https://open.spotify.com/track/0Fs9fIPSozmz7u0yZSv1OJ,"Akira Yamaoka — ""Not Tomorrow"" (piano arrangement by composer, official OST not on Spotify)"
-Kingdom Hearts,2002,Square,https://open.spotify.com/track/6Tkn4gwyqVcpU0ecgtU3bw,"Yoko Shimomura — ""Dearly Beloved"" (KHII Version) (official OST)"
-Halo: Combat Evolved,2001,Bungie,https://open.spotify.com/track/1SJ2ndZrIfBttZ9UfF3YS0,"Martin O'Donnell & Michael Salvatori — ""Halo Theme (Mjolnir Mix)"" (official OST)"
-Shadow of the Colossus,2005,Team Ico,https://open.spotify.com/track/4CkR1tnsdDJgY6FEIDyyB8,"Kow Otani — ""Main Theme"" (orchestral cover, Gaming in Symphony)"
-Katamari Damacy,2004,Namco,https://open.spotify.com/track/2gs8p5H5meCdZBtkOahBLG,"Yu Miyake — ""Lonely Rolling Star"" (Re-Arranged ver.) (official Bandai Namco re-release)"
-World of Warcraft,2004,Blizzard Entertainment,https://open.spotify.com/track/0N36RNj8gTvpJswtStaahM,"Jason Hayes — ""Legends of Azeroth (Main Title)"" (official OST)"
-Okami,2006,Clover Studio,https://open.spotify.com/track/4MZV6x0ovvvFNaT2tCYyhm,"Hiroshi Yamaguchi & Masami Ueda — ""Reset"" (piano arrangement/cover, official OST not on Spotify)"
-Persona 3,2006,Atlus,https://open.spotify.com/track/2mEoRvs28jKxUJyRAgKARr,"Shoji Meguro (vocals: Yumi Kawamura) — ""Burn My Dread"" (official OST)"
-Machinarium,2009,Amanita Design,https://open.spotify.com/track/7nRwBL2oSlsNHEmqfBuvTV,"Tomáš Dvořák (Floex) — ""Clockwise Operetta"" (official OST)"
-Journey,2012,thatgamecompany,https://open.spotify.com/track/1Lw8az0pvHNLIhOT2DWQ9W,"Austin Wintory — ""Nascence"" (official OST)"
-Dark Souls,2011,FromSoftware,https://open.spotify.com/track/6yPaEYRFqPotxWP2JBHwTZ,"Motoi Sakuraba — ""Gwyn, Lord of Cinder"" (official OST)"
-Ori and the Blind Forest,2015,Moon Studios,https://open.spotify.com/track/79aotvPXTlHbZ8MvoxhqAE,"Gareth Coker — ""Light of Nibel"" (official OST)"
-Stardew Valley,2016,ConcernedApe,https://open.spotify.com/track/68kilz0lYaGz9GLG3HAORo,"Eric Barone (ConcernedApe) — ""Stardew Valley Overture"" (official OST)"
-Cuphead,2017,StudioMDHR,https://open.spotify.com/track/3zD0YE28NZ9qTHvfVl6imU,"Kristofer Maddigan — ""Floral Fury"" (official OST)"
-NieR:Automata,2017,PlatinumGames,https://open.spotify.com/track/0qrvS8ysAmaXBz9uS4ot7M,"Keiichi Okabe (vocals: J'Nique Nicole) — ""Weight of the World"" (English Version) (official OST)"
-Hollow Knight,2017,Team Cherry,https://open.spotify.com/track/4p6GbcE3GjJs7JzhVBv2uT,"Christopher Larkin — ""Hornet"" (official OST)"
-Outer Wilds,2019,Mobius Digital,https://open.spotify.com/track/607Rub0edH75AmHEIsuw8N,"Andrew Prahlow — ""Travelers"" (official OST)"
-Hades,2020,Supergiant Games,https://open.spotify.com/track/5M8tCPBRAGdAVAyKIaEh9l,"Darren Korb (vocals: Ashley Barrett) — ""In the Blood"" (official OST)"
-It Takes Two,2021,Hazelight Studios,https://open.spotify.com/track/4qzz31heB1DdB1234e9jr4,"Kristofer Eng — ""It Takes Two Theme"" (official OST)"
-Tunic,2022,Isometricorp Games,https://open.spotify.com/track/299xMRqwT3Uk9pBGdtkHIS,"Lifeformed (Terence Lee) & Janice Kwan — ""Secret Legend"" (official OST)"
-Punch-Out!!,1987,Nintendo,https://open.spotify.com/track/6WNbGwdhW0Azjc3KNJaDcT,"Arcade Player — ""Main Theme"" (cover, official OST not on Spotify)"
-Gradius,1985,Konami,https://open.spotify.com/track/0ltmtHwusjmvK4MttowJxV,"Konami Kukeiha Club — ""Challenger 1985"" (Stage 1 BGM) (official OST)"
-Bubble Bobble,1986,Taito,https://open.spotify.com/track/6rfDaEQMj4b7L2M5oLGONV,"ZUNTATA — ""Main Theme"" (official Taito sound team release)"
-Out Run,1986,Sega AM2,https://open.spotify.com/track/7h5TodzUWZLeYw4dgawD8U,"Sega Sound Team — ""Magical Sound Shower"" (official OST)"
-Contra,1987,Konami,https://open.spotify.com/track/6bpychZwxgr3witPKQxWeb,"Konami Kukeiha Club — ""Fight of Jungle"" (official OST)"
-Double Dragon,1987,Technos Japan,https://www.youtube.com/watch?v=hqodmu0K28k,"Kazunaka Yamane — ""Slums (Arrival of the Black Warriors)"" (official arcade OST, direct upload, not on Spotify)"
-R-Type,1987,Irem,https://open.spotify.com/track/4miKhOZUQeIBlsJ1VQSwu8,"8-Bit Arcade — ""R-Type (Main Theme)"" (cover, official OST not on Spotify)"
-Ninja Gaiden,1988,Tecmo,https://open.spotify.com/track/4y1IoKJV0l20vQsCzeqWqo,"Keiji Yamagishi — ""The Menace of Jaquio"" (official Koei Tecmo OST reissue)"
-Prince of Persia,1989,Broderbund,https://open.spotify.com/track/5kkF9QHVnNWPr9LSvzIFbo,"Movie Sounds Unlimited — ""Main Theme"" (cover, official OST not on Spotify)"
-Tetris,1989,Nintendo R&D1,https://open.spotify.com/track/3p5vuIxKKVGF4GTusXJBWu,"Alexey Pajitnov & Andrew Skeet with London Philharmonic Orchestra — ""Tetris Theme (Korobeiniki)"" (official orchestral arrangement, composer-credited)"
-Streets of Rage 2,1992,Sega,https://open.spotify.com/track/5hbQBhHUbVanCy9hOuK9nH,"Yuzo Koshiro & Motohiro Kawashima — ""Go Straight"" (official OST)"
-Donkey Kong Country,1994,Rare,https://open.spotify.com/track/4PnqMtmOmvOdkPL6XKV6kD,"David Wise — ""Aquatic Ambience"" (piano arrangement/cover, official OST not on Spotify)"
-Secret of Mana,1993,Square,https://open.spotify.com/track/5idbgYKxJJHTgwyvgHRm8V,"Hiroki Kikuta — ""Fear of the Heavens"" (official OST)"
-Diablo,1996,Blizzard North,https://open.spotify.com/track/65hRFr12l4HCWpfZVJWgTf,"Matt Uelmen — ""Tristram"" (guitar cover, official OST not on Spotify)"
-Resident Evil,1996,Capcom,https://open.spotify.com/track/03HDDNMZOJx2EJReJbybvh,"Masami Ueda — ""Safe Haven"" (Save Room Theme) (piano cover, official OST not on Spotify)"
-Tomb Raider,1996,Core Design,https://open.spotify.com/track/6GiR2ztWKcx7abm4jhaBHa,"Nathan McCree — ""Tomb Raider Theme"" (composer's own synth mix, official)"
-Quake,1996,id Software,https://www.youtube.com/watch?v=eeNrRHty-Lo,"Nine Inch Nails (Trent Reznor) — ""Quake Theme"" (official audio upload)"
-Command & Conquer: Red Alert,1996,Westwood Studios,https://open.spotify.com/track/7FKXS9vlOtoA4Wc5b79Jbv,"Frank Klepacki — ""Hell March"" (official OST)"
-Tekken 3,1997,Namco,https://open.spotify.com/track/6v5S1BOnAnNAglq832HNWN,"TEKKEN Project / Bandai Namco Game Music — ""King (Arcade Version)"" (official OST)"
-Metal Gear Solid,1998,Konami,https://open.spotify.com/track/6tIQeW5SAz7U7EWHghrD0i,"Metal Gear Solid composers — ""Encounter"" (cover, official OST not on Spotify)"
-Banjo-Kazooie,1998,Rare,https://open.spotify.com/track/0mD6uTdPSQZZxuqVeFNLAt,"Grant Kirkhope — ""Spiral Mountain"" (official Rare 35th Anniversary Collection release)"
-StarCraft,1998,Blizzard Entertainment,https://open.spotify.com/track/6q9BpxMun4iKWzpTTIlWse,"Glenn Stafford — ""Terran One"" (official OST)"
-Grim Fandango,1998,LucasArts,https://open.spotify.com/track/6EVgWCJngtmrJ35bcjeInu,"Peter McConnell — ""Grim Fandango"" (Main Title Theme) (official OST)"
-Age of Empires II,1999,Ensemble Studios,https://open.spotify.com/track/3WvK62ywc649mZSsijAdEf,"Stephen Rippy, Kevin McMullan & Todd Masten — ""Age of Empires II Main Theme"" (official OST)"
-Rayman,1995,Ubisoft Montpellier,https://open.spotify.com/track/64Pa5stMhmO36B4QkaaLJZ,"Christophe Héral — ""The Band Awakens"" (Band Land theme, PS1 version) (official 30th Anniversary Edition reissue)"
-Star Fox,1993,Nintendo,https://open.spotify.com/track/0LcsbdpN6MNEBcWOjc1FBv,"Hajime Hirasawa — ""Corneria"" (cover, official OST not on Spotify)"
-Max Payne,2001,Remedy Entertainment,https://open.spotify.com/track/7dVHO06A4Sd1DCd2qrXT4k,"Kärtsy Hatakka & Kimmo Kajasto — ""Max Payne Theme"" (composer's own cover project, official OST not on Spotify)"
-Ratchet & Clank: Going Commando,2003,Insomniac Games,https://open.spotify.com/track/3WLVRtvwL1plsIA8IXboY2,"David Bergeaud — ""Megacorp - Store"" (cover, official OST not on Spotify)"
-Star Wars: Knights of the Old Republic,2003,BioWare,https://open.spotify.com/track/6cvbqbVzT5fI1QC7cqdhjS,"Jeremy Soule — ""Dueling Destinies"" (KOTOR Suite) (cover/arrangement, official OST not on Spotify)"
-Beyond Good & Evil,2003,Ubisoft Montpellier,https://open.spotify.com/track/4NnIpYNZJqNLrgWjR2Ffxx,"Christophe Héral — ""Akuda House Propaganda"" (official 20th Anniversary OST)"
-Psychonauts,2005,Double Fine Productions,https://open.spotify.com/track/3mym7eWijj5MG4KwOMTKHm,"Peter McConnell — ""Psychonauts Theme Medley"" (official OST)"
-God of War,2005,Santa Monica Studio,https://open.spotify.com/track/51kRrqU0IuXYXsdUaNRTJq,"Gerard Marino — ""God of War End Title"" (official OST)"
-Advance Wars,2001,Intelligent Systems,https://open.spotify.com/track/12eQBuzBd3nrDF206O3LJh,"Taishi Senda — ""Andy's Theme"" (cover, official OST not on Spotify)"
-The Elder Scrolls IV: Oblivion,2006,Bethesda Game Studios,https://open.spotify.com/track/4QX9ua1QVyhfAWy73TtrlH,"Jeremy Soule — ""Reign of the Septims"" (official OST)"
-Gears of War,2006,Epic Games,https://open.spotify.com/track/7euofl1CPWaf1TRTcgpMsF,"Kevin Riepl — ""Gears of War"" (official OST)"
-Bioshock,2007,2K Boston/Irrational Games,https://open.spotify.com/track/4bKQmstfMaOx4Ai7TokoR9,"Garry Schyman — ""Welcome to Rapture"" (piano duet cover, official OST not on Spotify)"
-Mass Effect,2007,BioWare,https://open.spotify.com/track/6efIeK8Md9RS43qoCTfM35,"Jack Wall — ""Vigil"" (official OST)"
-Persona 4,2008,Atlus,https://open.spotify.com/track/31Io30uqMuM8djSuBkaYP8,"Shoji Meguro (vocals: Shihoko Hirata) — ""Reach Out to the Truth"" (official reissue, original vocalist)"
-Dead Space,2008,Visceral Games,https://open.spotify.com/track/5mKeRBGw8peeJB9tyzJKrd,"Jason Graves — ""Dead Space Theme"" (official OST)"
-Uncharted 2: Among Thieves,2009,Naughty Dog,https://open.spotify.com/track/0tYeu9EIruakcoksqC6991,"Greg Edmonson — ""Nate's Theme 2.0"" (official OST)"
-Plants vs. Zombies,2009,PopCap Games,https://open.spotify.com/track/5ExE1x7WIIsb159d2cZ0Z2,"Laura Shigihara — ""Loonboon"" (official OST)"
-Batman: Arkham Asylum,2009,Rocksteady Studios,https://open.spotify.com/track/6uo7O9UwdD7AAE5EXiJfe4,"Nick Arundel — ""Enter the Asylum"" (official OST)"
-Super Meat Boy,2010,Team Meat,https://open.spotify.com/track/1nGi3nUssOmU2w6gjtGGwb,"Danny Baranowsky — ""Forest Funk"" (official OST)"
-The Binding of Isaac,2011,Edmund McMillen & Florian Himsl,https://open.spotify.com/track/6kGSvibcKPrddNW5pnTPVB,"Danny Baranowsky — ""The Binding of Isaac"" (official OST)"
-The Elder Scrolls V: Skyrim,2011,Bethesda Game Studios,https://open.spotify.com/track/1jLmVI46Yf0jzQkugZReIn,"Jeremy Soule — ""Dragonborn"" (official OST)"
-Hotline Miami,2012,Dennaton Games,https://open.spotify.com/track/6vc7GNW3FxMkgKuProVOoB,"M|O|O|N — ""Hydrogen"" (official, licensed soundtrack release)"
-Fez,2012,Polytron Corporation,https://open.spotify.com/track/1oFKiQRWXB8XevlgomDLUP,"Disasterpeace — ""Puzzle"" (official OST)"
-Shovel Knight,2014,Yacht Club Games,https://open.spotify.com/track/33SGhp4QaGuTrFlsMPoPkn,"Jake Kaufman — ""Strike the Earth! (Plains of Passage)"" (official OST)"
-The Last of Us,2013,Naughty Dog,https://open.spotify.com/track/7x9SxPL7Gx2wwW6IL5J57A,"Gustavo Santaolalla — ""All Gone (No Escape)"" (official live orchestral arrangement, Video Games Live)"
-"Papers, Please",2013,3909 LLC,https://open.spotify.com/track/1j8nEnYhowaJRq5aZD35mo,"Lucas Pope — ""Glory to Arstotzka"" (official OST)"
-Divinity: Original Sin,2014,Larian Studios,https://www.youtube.com/watch?v=MW1cRBIWpKQ,"Kirill Pokrovsky — ""Mirror of Truth"" (official OST, uploaded by composer)"
-Hyper Light Drifter,2016,Heart Machine,https://open.spotify.com/track/3y45YgtSxPjqQHCxSwaXFr,"Disasterpeace — ""The Drifter"" (official OST)"
-Titanfall 2,2016,Respawn Entertainment,https://open.spotify.com/track/6D3HTlLMTsvYlI8ic7cpwI,"Stephen Barton — ""BT-7274"" (official OST)"
-Owlboy,2016,D-Pad Studio,https://open.spotify.com/track/0Uy1ICLY9Yf2zx2tm5MYOr,"Jonathan Geer — ""Owlboy Main Title"" (official OST)"
-Enter the Gungeon,2016,Dodge Roll,https://open.spotify.com/track/24zyNTMz1yfHACO8VvxkY8,"Doseone — ""Enter the Gungeon"" (official OST)"
-What Remains of Edith Finch,2017,Giant Sparrow,https://open.spotify.com/track/4MQlkQ6U6R2itl3AggPppI,"Jeff Russo — ""Edith's Theme"" (official OST)"
-Return of the Obra Dinn,2018,Lucas Pope,https://open.spotify.com/track/1iDt0utPzajZLQH2OLu16e,"Lucas Pope — ""Return of the Obra Dinn"" (official OST)"
-Katana Zero,2019,Askiisoft,https://open.spotify.com/track/2jRKOHOLv8b60sy6ypdUIk,"Bill Kiley — ""Rain on Brick"" (official OST)"
-Disco Elysium,2019,ZA/UM,https://open.spotify.com/track/3TOCzZr8KJzPEmenbBLGT5,"Sea Power (British Sea Power) — ""Whirling-In-Rags, 8 PM"" (official OST)"
-Untitled Goose Game,2019,House House,https://open.spotify.com/track/2wG6hcMXyk9ZLyzy1O8Zm6,"Claude Debussy, arr. Dan Golding — ""Minstrels (Rake In The Lake)"" (official OST, dynamic classical arrangement)"
-Ghost of Tsushima,2020,Sucker Punch Productions,https://open.spotify.com/track/0Clbec9qBFDsjCR5Zk0ekH,"Ilan Eshkeri — ""Komoda Beach"" (official OST)"
-Loop Hero,2021,Four Quarters,https://www.youtube.com/watch?v=UvaxtajBoU4,"blinch (Aleksandr Goreslavets) — ""Lich Is Unbreakable"" (official OST, direct upload)"
-Unpacking,2021,Witch Beam,https://open.spotify.com/track/3JSROZg7BjVN11A3SY8cCn,"Jeff van Dyck — ""Unpacking Theme"" (official OST)"
-Vampire Survivors,2022,poncle,https://open.spotify.com/track/72DFAaDLMzHbdAaHNs62up,"Daniele Zandara — ""Reincarnated Echoes"" (official OST, Volume 1)"
-Stray,2022,BlueTwelve Studio,https://open.spotify.com/track/0oamqLtZTA2PKiAm4XEAHR,"Yann van der Cruyssen — ""Outlaws"" (official OST)"
-Neon White,2022,Angel Matrix,https://open.spotify.com/track/0E8wrjllpm6lmWYfwGT79b,"Machine Girl — ""Fade to White"" (official OST)"
-Pizza Tower,2023,Tour De Pizza,https://open.spotify.com/track/5AyJU6pf4rZhRMFqrWTpwx,"Mr. Sauceman — ""It's Pizza Time!"" (official OST)"
-Baldur's Gate 3,2023,Larian Studios,https://open.spotify.com/track/2m9RHn4r4CitvsSeva9j5W,"Borislav Slavov & John Oeth — ""Down By the River"" (official Guitar Collection release)"
-Sea of Stars,2023,Sabotage Studio,https://open.spotify.com/track/3QpwOOdDOy27Yaf3bHubec,"Eric W. Brown — ""The Lost Ones"" (official OST)"
-Balatro,2024,LocalThunk,https://open.spotify.com/track/010Aw9Ndss0NOeryzNKYOu,"LouisF — ""Main Theme"" (official OST)"
+game,year,studio,url,notes,best
+Mega Man 2,1988,Capcom,https://www.youtube.com/watch?v=eELMoAwkqd0,"Takashi Tateishi — ""Dr. Wily Castle Stage 1"" (original game audio, YouTube)",yes
+Castlevania,1986,Konami,https://www.youtube.com/watch?v=_Kuh_OjCpMs,"Kinuyo Yamashita — ""Vampire Killer"" (original game audio, YouTube)",yes
+Metroid,1986,Nintendo R&D1,https://www.youtube.com/watch?v=WVTzg2kvNaQ,"Hirokazu Tanaka — ""Brinstar"" (original game audio, YouTube)",yes
+Sonic the Hedgehog 2,1992,Sonic Team,https://www.youtube.com/watch?v=-LYB7iLZNWE,"Masato Nakamura — ""Chemical Plant Zone"" (original game audio, YouTube)",yes
+Street Fighter II,1991,Capcom,https://www.youtube.com/watch?v=xOinHbF8l8Y,"Capcom Sound Team — ""Guile's Theme"" (original game audio, YouTube)",yes
+Chrono Trigger,1995,Square,https://www.youtube.com/watch?v=BXo3DrXHY8w,"Yasunori Mitsuda — ""Corridors of Time"" (original game audio, YouTube)",yes
+EarthBound,1994,Ape Inc. / HAL Laboratory,https://www.youtube.com/watch?v=S-kv81D08ZU,"Keiichi Suzuki & Hirokazu Tanaka — ""Eight Melodies"" (Sound Stone version, original SNES audio, YouTube)",yes
+Final Fantasy VI,1994,Square,https://www.youtube.com/watch?v=PiI7rDqv9FQ,"Nobuo Uematsu — ""Terra's Theme"" (original SNES audio, YouTube)",yes
+Doom,1993,id Software,https://www.youtube.com/watch?v=DnPkRkCwgNw,"Bobby Prince — ""At Doom's Gate"" (original game audio, YouTube)",yes
+GoldenEye 007,1997,Rare,https://www.youtube.com/watch?v=_oMCy3IZAQE,"Grant Kirkhope, Graeme Norgate & Robin Beanland — ""Facility"" (original game audio, YouTube)",yes
+Silent Hill,1999,Konami Computer Entertainment Tokyo,https://www.youtube.com/watch?v=rlI6ozumJ9M,"Akira Yamaoka — ""Not Tomorrow"" (original game audio, YouTube)",
+Kingdom Hearts,2002,Square,https://www.youtube.com/watch?v=ue5QvchzQT4,"Yoko Shimomura — ""Dearly Beloved"" (original game audio, YouTube)",yes
+Halo: Combat Evolved,2001,Bungie,https://www.youtube.com/watch?v=GyXGCV8rb6s,"Martin O'Donnell & Michael Salvatori — ""Halo Theme"" (original game audio, YouTube)",yes
+Shadow of the Colossus,2005,Team Ico,https://www.youtube.com/watch?v=usiC_nE9fsQ,"Kow Otani — ""Prologue ~To the Ancient Land~"" (main theme, original game audio, YouTube)",yes
+Katamari Damacy,2004,Namco,https://www.youtube.com/watch?v=pI5-LvbE4AE,"Yu Miyake (vocals: Saki Kabata) — ""Lonely Rolling Star"" (original game audio, YouTube)",yes
+World of Warcraft,2004,Blizzard Entertainment,https://www.youtube.com/watch?v=welG2AF8H_s,"Jason Hayes — ""Legends of Azeroth (Main Title)"" (original game audio, YouTube)",yes
+Okami,2006,Clover Studio,https://www.youtube.com/watch?v=p4RpnczRpjo,"Hiroshi Yamaguchi & Masami Ueda — ""Reset"" (original game audio, YouTube)",
+Persona 3,2006,Atlus,https://www.youtube.com/watch?v=AcCoPQE6g10,"Shoji Meguro (vocals: Yumi Kawamura) — ""Burn My Dread"" (original game audio, YouTube)",yes
+Machinarium,2009,Amanita Design,https://www.youtube.com/watch?v=QqCBe5XL2mc,"Tomáš Dvořák (Floex) — ""Clockwise Operetta"" (original game audio, YouTube)",
+Journey,2012,thatgamecompany,https://www.youtube.com/watch?v=b4KuK5IPZ-o,"Austin Wintory — ""Nascence"" (original game audio, YouTube)",yes
+Dark Souls,2011,FromSoftware,https://www.youtube.com/watch?v=Nvv9w-UPuSY,"Motoi Sakuraba — ""Gwyn, Lord of Cinder"" (original game audio, YouTube)",yes
+Ori and the Blind Forest,2015,Moon Studios,https://www.youtube.com/watch?v=1x7g-CMakFU,"Gareth Coker — ""Light of Nibel"" (original game audio, YouTube)",
+Stardew Valley,2016,ConcernedApe,https://www.youtube.com/watch?v=vTARjk_fZS0,"Eric Barone (ConcernedApe) — ""Stardew Valley Overture"" (original game audio, YouTube)",yes
+Cuphead,2017,StudioMDHR,https://www.youtube.com/watch?v=gHAtsy-l9HU,"Kristofer Maddigan — ""Floral Fury"" (original game audio, YouTube)",yes
+NieR:Automata,2017,PlatinumGames,https://www.youtube.com/watch?v=Yza2l5sWYzg,"Keiichi Okabe (vocals: J'Nique Nicole) — ""Weight of the World"" (original game audio, YouTube)",yes
+Hollow Knight,2017,Team Cherry,https://www.youtube.com/watch?v=7xkM8mWC4Kk,"Christopher Larkin — ""Hornet"" (original game audio, YouTube)",yes
+Outer Wilds,2019,Mobius Digital,https://www.youtube.com/watch?v=z34enKCqRGk,"Andrew Prahlow — ""Travelers"" (original game audio, YouTube)",yes
+Hades,2020,Supergiant Games,https://www.youtube.com/watch?v=y78t1myo-BE,"Darren Korb (vocals: Ashley Barrett) — ""In the Blood"" (original in-game audio, YouTube)",yes
+It Takes Two,2021,Hazelight Studios,https://www.youtube.com/watch?v=NpvewUbIL6M,"Kristofer Eng & Gustaf Grefberg — ""It Takes Two Theme"" (original game audio, extended upload, YouTube)",
+Tunic,2022,Isometricorp Games,https://www.youtube.com/watch?v=BGg46EkShPU,"Lifeformed (Terence Lee) & Janice Kwan — ""Secret Legend"" (original game audio, YouTube)",
+Punch-Out!!,1987,Nintendo,https://www.youtube.com/watch?v=VE8vKLEK6A8,"Yukio Kaneoka & Akito Nakatsuka — ""Fight Theme"" (Mike Tyson's Punch-Out!!, original NES audio, YouTube)",yes
+Gradius,1985,Konami,https://www.youtube.com/watch?v=4LSHC0UhtQs,"Konami Kukeiha Club — ""Challenger 1985"" (original game audio, YouTube)",
+Bubble Bobble,1986,Taito,https://www.youtube.com/watch?v=KOuVKxzW4Do,"Tadashi Kimijima — ""Quest Begins / Main Theme"" (NES version, original game audio, YouTube)",yes
+Out Run,1986,Sega AM2,https://www.youtube.com/watch?v=fy95rEEyd1o,"Sega Sound Team — ""Magical Sound Shower"" (original game audio, YouTube)",yes
+Contra,1987,Konami,https://www.youtube.com/watch?v=BhS5fwUl40A,"Kazuki Muraoka — ""Jungle (Stage 1)"" (original NES audio, YouTube)",yes
+Double Dragon,1987,Technos Japan,https://www.youtube.com/watch?v=hqodmu0K28k,"Kazunaka Yamane — ""Slums (Arrival of the Black Warriors)"" (official arcade OST, direct upload, not on Spotify)",yes
+R-Type,1987,Irem,https://www.youtube.com/watch?v=tXrxov_0oj0,"Masato Ishizaki — ""Battle Theme (Stage 1)"" (original arcade audio, YouTube)",
+Ninja Gaiden,1988,Tecmo,https://www.youtube.com/watch?v=CRpcMlFYjZg,"Keiji Yamagishi — ""The Menace of Jaquio"" (original game audio, YouTube)",
+Prince of Persia,1989,Broderbund,https://www.youtube.com/watch?v=tuRzQfuWcnU,"Francis Mechner — ""Intro Theme"" (original PC AdLib audio, YouTube)",
+Tetris,1989,Nintendo R&D1,https://www.youtube.com/watch?v=fvZ4N_u98xg,"Hirokazu Tanaka (arr.) — ""Type A"" (Korobeiniki, original Game Boy audio, YouTube)",yes
+Streets of Rage 2,1992,Sega,https://www.youtube.com/watch?v=_BZEHMQV8xg,"Yuzo Koshiro & Motohiro Kawashima — ""Go Straight"" (original game audio, YouTube)",yes
+Donkey Kong Country,1994,Rare,https://www.youtube.com/watch?v=1XM8ReW9NvA,"David Wise — ""Aquatic Ambience"" (original SNES audio, YouTube)",yes
+Secret of Mana,1993,Square,https://www.youtube.com/watch?v=N75Yx3aOpzw,"Hiroki Kikuta — ""Fear of the Heavens"" (track 1 of the full original SNES soundtrack upload, YouTube)",
+Diablo,1996,Blizzard North,https://www.youtube.com/watch?v=DX6PaACRrhA,"Matt Uelmen — ""Tristram"" (original game audio, YouTube)",yes
+Resident Evil,1996,Capcom,https://www.youtube.com/watch?v=VEzIXcNP1rw,"Makoto Tomozawa/Akari Kaida/Masami Ueda — ""Save Room Theme"" (original 1996 PS1 audio, YouTube)",yes
+Tomb Raider,1996,Core Design,https://www.youtube.com/watch?v=1O_GWd0YLgo,"Nathan McCree — ""Tomb Raider Theme"" (original game audio, YouTube)",yes
+Quake,1996,id Software,https://www.youtube.com/watch?v=eeNrRHty-Lo,"Nine Inch Nails (Trent Reznor) — ""Quake Theme"" (official audio upload)",
+Command & Conquer: Red Alert,1996,Westwood Studios,https://www.youtube.com/watch?v=e3YzmjmAGoI,"Frank Klepacki — ""Hell March"" (original game audio, YouTube)",yes
+Tekken 3,1997,Namco,https://www.youtube.com/watch?v=YqbaBlTPEFM,"TEKKEN Project / Bandai Namco Game Music — ""King (Arcade Version)"" (original game audio, YouTube)",
+Metal Gear Solid,1998,Konami,https://www.youtube.com/watch?v=ePa9Je1H-CI,"Takanari Ishiyama — ""Encounter"" (original game audio, YouTube)",yes
+Banjo-Kazooie,1998,Rare,https://www.youtube.com/watch?v=wjSt3sLlz4E,"Grant Kirkhope — ""Spiral Mountain"" (original game audio, YouTube)",yes
+StarCraft,1998,Blizzard Entertainment,https://www.youtube.com/watch?v=C0lR8x5i8QA,"Glenn Stafford — ""Terran One"" (original game audio, YouTube)",yes
+Grim Fandango,1998,LucasArts,https://www.youtube.com/watch?v=0acrEjceK3g,"Peter McConnell — ""Grim Fandango"" (original game audio, YouTube)",yes
+Age of Empires II,1999,Ensemble Studios,https://www.youtube.com/watch?v=Y2o8h0LUgU0,"Stephen Rippy, Kevin McMullan & Todd Masten — ""Age of Empires II Main Theme"" (original game audio, YouTube)",yes
+Rayman,1995,Ubisoft Montpellier,https://www.youtube.com/watch?v=6Z6QgfmNfpY,"Christophe Héral (as Rémi Gazel) — ""Band Land Theme"" (original game audio, YouTube)",
+Star Fox,1993,Nintendo,https://www.youtube.com/watch?v=7Ks6R1ZLtco,"Hajime Hirasawa — ""Corneria"" (original SNES audio, YouTube)",yes
+Max Payne,2001,Remedy Entertainment,https://www.youtube.com/watch?v=_17usOw7rbo,"Kärtsy Hatakka & Kimmo Kajasto — ""Max Payne Theme"" (original game audio, YouTube)",yes
+Ratchet & Clank: Going Commando,2003,Insomniac Games,https://www.youtube.com/watch?v=qGvcqY6tci8,"David Bergeaud — ""Megacorp Store (Oozla)"" (original game audio, YouTube)",
+Star Wars: Knights of the Old Republic,2003,BioWare,https://www.youtube.com/watch?v=jEvigNNpPXY,"Jeremy Soule — ""Old Republic Theme"" (original game audio, YouTube)",
+Beyond Good & Evil,2003,Ubisoft Montpellier,https://www.youtube.com/watch?v=u4xBVYTuw4g,"Christophe Héral — ""Akuda House Propaganda"" (original game audio, YouTube)",
+Psychonauts,2005,Double Fine Productions,https://www.youtube.com/watch?v=K04nJf5ErLM,"Peter McConnell — ""Psychonauts Theme Medley"" (original game audio, YouTube)",
+God of War,2005,Santa Monica Studio,https://www.youtube.com/watch?v=Rzm6tYDf-vc,"Gerard Marino — ""God of War End Title"" (original game audio, YouTube)",yes
+Advance Wars,2001,Intelligent Systems,https://www.youtube.com/watch?v=TQcgQpMlkEw,"Taishi Senda — ""Andy's Theme"" (original GBA audio, YouTube)",
+The Elder Scrolls IV: Oblivion,2006,Bethesda Game Studios,https://www.youtube.com/watch?v=962sVZ5fHcY,"Jeremy Soule — ""Reign of the Septims"" (original game audio, YouTube)",yes
+Gears of War,2006,Epic Games,https://www.youtube.com/watch?v=-jQtgWsTooA,"Kevin Riepl — ""Gears of War Main Theme"" (original game audio, YouTube)",yes
+Bioshock,2007,2K Boston/Irrational Games,https://www.youtube.com/watch?v=FK2GIPZ8KBU,"Garry Schyman — ""Welcome to Rapture"" (original game audio, YouTube)",yes
+Mass Effect,2007,BioWare,https://www.youtube.com/watch?v=Hqa8l8E-y_c,"Jack Wall — ""Vigil"" (original game audio, YouTube)",yes
+Persona 4,2008,Atlus,https://www.youtube.com/watch?v=kw_WCDkq7qI,"Shoji Meguro (vocals: Shihoko Hirata) — ""Reach Out to the Truth"" (original game audio, YouTube)",yes
+Dead Space,2008,Visceral Games,https://www.youtube.com/watch?v=lpuBhfg8oCM,"Jason Graves — ""Dead Space Theme"" (original game audio, YouTube)",
+Uncharted 2: Among Thieves,2009,Naughty Dog,https://www.youtube.com/watch?v=GhdJSAPS21U,"Greg Edmonson — ""Nate's Theme 2.0"" (original game audio, YouTube)",yes
+Plants vs. Zombies,2009,PopCap Games,https://www.youtube.com/watch?v=lr4vi_XAjQQ,"Laura Shigihara — ""Loonboon"" (original game audio, YouTube)",yes
+Batman: Arkham Asylum,2009,Rocksteady Studios,https://www.youtube.com/watch?v=RRxYFvUd6Yw,"Nick Arundel — ""Enter the Asylum"" (original game audio, YouTube)",
+Super Meat Boy,2010,Team Meat,https://www.youtube.com/watch?v=ZXxYg3Q8tjk,"Danny Baranowsky — ""Forest Funk"" (original game audio, YouTube)",
+The Binding of Isaac,2011,Edmund McMillen & Florian Himsl,https://www.youtube.com/watch?v=H5mnDcZu0I0,"Danny Baranowsky — ""The Binding of Isaac"" (original game audio, YouTube)",yes
+The Elder Scrolls V: Skyrim,2011,Bethesda Game Studios,https://www.youtube.com/watch?v=uRMkeND6afw,"Jeremy Soule — ""Dragonborn"" (original game audio, YouTube)",yes
+Hotline Miami,2012,Dennaton Games,https://www.youtube.com/watch?v=SNE2oCZH_4k,"M|O|O|N — ""Hydrogen"" (original game audio, YouTube)",yes
+Fez,2012,Polytron Corporation,https://www.youtube.com/watch?v=MdY-iueFsoo,"Disasterpeace — ""Puzzle"" (original game audio, YouTube)",
+Shovel Knight,2014,Yacht Club Games,https://www.youtube.com/watch?v=W7rhEKTX-sE,"Jake Kaufman — ""Strike the Earth! (Plains of Passage)"" (original game audio, YouTube)",yes
+The Last of Us,2013,Naughty Dog,https://www.youtube.com/watch?v=Xd-GB_ueJgA,"Gustavo Santaolalla — ""All Gone (No Escape)"" (official soundtrack, YouTube)",yes
+"Papers, Please",2013,3909 LLC,https://www.youtube.com/watch?v=M01CwOC17_w,"Lucas Pope — ""Papers, Please Theme (Arstotzka Anthem)"" (original game audio, YouTube)",yes
+Divinity: Original Sin,2014,Larian Studios,https://www.youtube.com/watch?v=MW1cRBIWpKQ,"Kirill Pokrovsky — ""Mirror of Truth"" (official OST, uploaded by composer)",
+Hyper Light Drifter,2016,Heart Machine,https://www.youtube.com/watch?v=aBMgcQdWzf4,"Disasterpeace — ""Seeds of the Crown"" (original game audio, YouTube)",
+Titanfall 2,2016,Respawn Entertainment,https://www.youtube.com/watch?v=pJU7kWTdAj4,"Stephen Barton — ""BT-7274"" (original game audio, YouTube)",
+Owlboy,2016,D-Pad Studio,https://www.youtube.com/watch?v=EpmN9Vgv1Q8,"Jonathan Geer — ""Owlboy Main Title"" (opening track of the full official soundtrack upload, YouTube)",
+Enter the Gungeon,2016,Dodge Roll,https://www.youtube.com/watch?v=bL4w3VsWav4,"Doseone — ""Enter the Gungeon (Main Theme)"" (original game audio, YouTube)",
+What Remains of Edith Finch,2017,Giant Sparrow,https://www.youtube.com/watch?v=0gaHg_7-Zww,"Jeff Russo — ""Edith's Theme"" (original game audio, YouTube)",
+Return of the Obra Dinn,2018,Lucas Pope,https://www.youtube.com/watch?v=z895klg3LyE,"Lucas Pope — ""Main Title"" (original game audio, YouTube)",yes
+Katana Zero,2019,Askiisoft,https://www.youtube.com/watch?v=BMCk3m5b5Gw,"Bill Kiley — ""Rain on Brick"" (original game audio, YouTube)",
+Disco Elysium,2019,ZA/UM,https://www.youtube.com/watch?v=_sTwNN8uAGc,"Sea Power (British Sea Power) — ""Whirling-In-Rags, 8 PM"" (original game audio, YouTube)",yes
+Untitled Goose Game,2019,House House,https://www.youtube.com/watch?v=msD8MfXJzIo,"Claude Debussy, arr. Dan Golding — ""Minstrels"" (official soundtrack, YouTube)",yes
+Ghost of Tsushima,2020,Sucker Punch Productions,https://www.youtube.com/watch?v=LdByrT3mvaM,"Ilan Eshkeri — ""Komoda Beach"" (original game audio, YouTube)",
+Loop Hero,2021,Four Quarters,https://www.youtube.com/watch?v=UvaxtajBoU4,"blinch (Aleksandr Goreslavets) — ""Lich Is Unbreakable"" (official OST, direct upload)",
+Unpacking,2021,Witch Beam,https://www.youtube.com/watch?v=JnqqO3aZC9s,"Jeff van Dyck — ""Unpacking Theme"" (original game audio, YouTube)",
+Vampire Survivors,2022,poncle,https://www.youtube.com/watch?v=dwx2DtyqSLc,"Daniele Zandara — ""Reincarnated Echoes"" (original game audio, YouTube)",
+Stray,2022,BlueTwelve Studio,https://www.youtube.com/watch?v=_qZPur6_ymg,"Yann van der Cruyssen — ""Outlaws"" (original game audio, YouTube)",
+Neon White,2022,Angel Matrix,https://www.youtube.com/watch?v=Lb9MHI9zOq4,"Machine Girl — ""Fade to White"" (original game audio, YouTube)",
+Pizza Tower,2023,Tour De Pizza,https://www.youtube.com/watch?v=B7gGacb8cO4,"Mr. Sauceman — ""It's Pizza Time!"" (original game audio, YouTube)",yes
+Baldur's Gate 3,2023,Larian Studios,https://www.youtube.com/watch?v=0EwhdbYnHbg,"Borislav Slavov — ""Down by the River"" (official soundtrack, YouTube)",yes
+Sea of Stars,2023,Sabotage Studio,https://www.youtube.com/watch?v=2dy-u_JgniE,"Eric W. Brown — ""The Lost Ones"" (original game audio, YouTube)",
+Balatro,2024,LocalThunk,https://www.youtube.com/watch?v=tRPrh5C8pdo,"LouisF — ""Main Theme"" (original game audio, YouTube)",yes
+Pac-Man,1980,Namco,https://www.youtube.com/watch?v=2Zl6Pt2wl70,"Toshio Kai — ""Start Music / Opening Theme"" (original arcade audio, YouTube)",yes
+The Legend of Zelda,1986,Nintendo,https://www.youtube.com/watch?v=ncg72VswyTs,"Koji Kondo — ""Overworld Theme"" (original NES audio, YouTube)",yes
+DuckTales,1989,Capcom,https://www.youtube.com/watch?v=KF32DRg9opA,"Hiroshige Tonomura — ""The Moon"" (original NES audio, YouTube)",yes
+Super Mario World,1990,Nintendo,https://www.youtube.com/watch?v=tAaGKo4XVvM,"Koji Kondo — ""Overworld Theme"" (original SNES audio, YouTube)",yes
+The Secret of Monkey Island,1990,Lucasfilm Games,https://www.youtube.com/watch?v=Fv0NyysIxBQ,"Michael Land — ""Monkey Island Theme"" (official release, YouTube Topic)",yes
+Sonic the Hedgehog,1991,Sonic Team,https://www.youtube.com/watch?v=55uDJ39W4i0,"Masato Nakamura — ""Green Hill Zone"" (original Mega Drive audio, YouTube)",yes
+Kirby's Dream Land,1992,HAL Laboratory,https://www.youtube.com/watch?v=slgta0KHYgU,"Jun Ishikawa — ""Green Greens"" (original Game Boy audio, YouTube)",yes
+Mega Man X,1993,Capcom,https://www.youtube.com/watch?v=AipJNHPvIU4,"Setsuo Yamamoto et al. — ""Storm Eagle Stage"" (original SNES audio, YouTube)",yes
+Donkey Kong Country 2: Diddy's Kong Quest,1995,Rare,https://www.youtube.com/watch?v=1ENbXN9N11g,"David Wise — ""Stickerbush Symphony"" (original SNES audio, YouTube)",yes
+Duke Nukem 3D,1996,3D Realms,https://www.youtube.com/watch?v=imRgEp9DeSE,"Lee Jackson — ""Grabbag"" (original game audio, YouTube)",yes
+Crash Bandicoot,1996,Naughty Dog,https://www.youtube.com/watch?v=v7my2hN_Zpk,"Josh Mancell (Mutato Muzika) — ""N. Sanity Beach"" (original PS1 audio, YouTube)",yes
+Super Mario 64,1996,Nintendo,https://www.youtube.com/watch?v=rJULqD1j0zE,"Koji Kondo — ""Main Theme / Bob-omb Battlefield"" (original N64 audio, YouTube)",yes
+Pokémon Red and Blue,1996,Game Freak,https://www.youtube.com/watch?v=Zw0W8xwqWJo,"Junichi Masuda — ""Opening Theme"" (original Game Boy audio, YouTube)",yes
+Mario Kart 64,1996,Nintendo,https://www.youtube.com/watch?v=K5xdue7GFcc,"Kenta Nagata — ""Rainbow Road"" (original N64 audio, YouTube)",yes
+Chrono Cross,1999,Square,https://www.youtube.com/watch?v=40BZyMdDG4s,"Yasunori Mitsuda — ""Scars of Time"" (official soundtrack, YouTube Topic)",yes
+Deus Ex,2000,Ion Storm,https://www.youtube.com/watch?v=Rm9PJNF3sE0,"Alexander Brandon — ""Main Title"" (original game audio, YouTube)",yes
+Final Fantasy X,2001,Square,https://www.youtube.com/watch?v=ewvyrFnOstQ,"Nobuo Uematsu — ""To Zanarkand"" (original soundtrack, YouTube)",yes
+The Legend of Zelda: The Wind Waker,2002,Nintendo,https://www.youtube.com/watch?v=SXGGvsHq6iA,"Kenta Nagata et al. — ""Dragon Roost Island"" (original GameCube audio, YouTube)",yes
+Cave Story,2004,Studio Pixel,https://www.youtube.com/watch?v=_ssI0MGI9H8,"Daisuke ""Pixel"" Amaya — ""Cave Story (Main Theme)"" (original game audio, YouTube)",yes
+Wii Sports,2006,Nintendo,https://www.youtube.com/watch?v=2qvAxPqy2wA,"Kazumi Totaka — ""Title Theme"" (original Wii audio, YouTube)",yes
+Super Mario Galaxy,2007,Nintendo,https://www.youtube.com/watch?v=1bvDHAUv2ak,"Mahito Yokota — ""Gusty Garden Galaxy"" (original soundtrack, YouTube)",yes
+Super Smash Bros. Brawl,2008,Sora Ltd.,https://www.youtube.com/watch?v=nqbwdoNQqSQ,"Nobuo Uematsu — ""Main Theme"" (original soundtrack, YouTube)",yes
+Castle Crashers,2008,The Behemoth,https://www.youtube.com/watch?v=0pBqzg0NSxg,"Jeremy ""Gregorio"" Ellis et al. — ""Four Brave Champions (Main Theme)"" (original soundtrack, YouTube)",
+World of Goo,2008,2D Boy,https://www.youtube.com/watch?v=2VtnfLrHorA,"Kyle Gabler — ""Brave Adventurers"" (original soundtrack, YouTube)",
+Assassin's Creed II,2009,Ubisoft Montreal,https://www.youtube.com/watch?v=FSVHx23ByhM,"Jesper Kyd — ""Ezio's Family"" (official soundtrack, Ubisoft Music YouTube)",yes
+Bastion,2011,Supergiant Games,https://www.youtube.com/watch?v=vBci3ue4gv4,"Darren Korb — ""Build That Wall (Zia's Theme)"" (original soundtrack, YouTube)",yes
+Terraria,2011,Re-Logic,https://www.youtube.com/watch?v=S20YJA6CoZo,"Scott Lloyd Shelly — ""Overworld Day"" (original soundtrack, YouTube)",yes
+Portal 2,2011,Valve,https://www.youtube.com/watch?v=ao7GG8FXWqQ,"Jonathan Coulton — ""Want You Gone"" (original soundtrack, YouTube)",yes
+Super Hexagon,2012,Terry Cavanagh,https://www.youtube.com/watch?v=N6atL8AwzKc,"Chipzel — ""Courtesy"" (official upload by composer, YouTube)",
+FTL: Faster Than Light,2012,Subset Games,https://www.youtube.com/watch?v=AgL6jbqDbx8,"Ben Prunty — ""MilkyWay (Battle)"" (original soundtrack, YouTube)",
+Transistor,2014,Supergiant Games,https://www.youtube.com/watch?v=dw3VoxL36Vo,"Darren Korb feat. Ashley Barrett — ""We All Become"" (original soundtrack, YouTube)",
+The Witcher 3: Wild Hunt,2015,CD Projekt Red,https://www.youtube.com/watch?v=X_xAOBpmKRM,"Marcin Przybyłowicz & Percival — ""The Fields of Ard Skellig"" (original soundtrack, YouTube)",yes
+Crypt of the NecroDancer,2015,Brace Yourself Games,https://www.youtube.com/watch?v=iPe3LT37h-Y,"Danny Baranowsky — ""Disco Descent (1-1)"" (official upload by composer, YouTube)",yes
+Splatoon,2015,Nintendo,https://www.youtube.com/watch?v=LrsAKUnb3Qg,"Toru Minegishi / Shiho Fujii — ""Ink Me Up"" (Squid Sisters, original soundtrack, YouTube)",yes
+Doom,2016,id Software,https://www.youtube.com/watch?v=QHRuTYtSbJQ,"Mick Gordon — ""BFG Division"" (official upload by composer, YouTube)",yes
+Super Mario Odyssey,2017,Nintendo,https://www.youtube.com/watch?v=VVw9SJHRuPM,"Naoto Kubo — ""Jump Up, Super Star!"" (official full-version release, YouTube)",yes
+A Hat in Time,2017,Gears for Breakfast,https://www.youtube.com/watch?v=w1-lGNJADnw,"Pascal Michael Stiefel — ""Welcome to Mafia Town"" (official soundtrack, YouTube Topic)",yes
+Deltarune,2018,Toby Fox,https://www.youtube.com/watch?v=GPL5Hkl11IQ,"Toby Fox — ""Rude Buster"" (official soundtrack, YouTube Topic)",yes
+Dead Cells,2018,Motion Twin,https://www.youtube.com/watch?v=QRk4uC_o7eQ,"Yoann Laulan — ""Prisoner's Awakening"" (official soundtrack, YouTube Topic)",yes
+Subnautica,2018,Unknown Worlds Entertainment,https://www.youtube.com/watch?v=nf30qQzw7rk,"Simon Chylinski — ""Abandon Ship"" (official soundtrack, YouTube Topic)",
+Red Dead Redemption 2,2018,Rockstar Games,https://www.youtube.com/watch?v=HjYLY3BGDY4,"Daniel Lanois — ""That's the Way It Is"" (official soundtrack, YouTube Topic)",yes
+Sayonara Wild Hearts,2019,Simogo,https://www.youtube.com/watch?v=n4b5CUDVCjA,"Daniel Olsén & Jonathan Eng — ""Wild Hearts Never Die"" (official soundtrack, YouTube Topic)",
+Animal Crossing: New Horizons,2020,Nintendo,https://www.youtube.com/watch?v=lI_C1Bjdqn4,"Kazumi Totaka et al. — ""Main Theme"" (original Switch audio, YouTube)",yes
+Risk of Rain 2,2020,Hopoo Games,https://www.youtube.com/watch?v=McYWBsystGE,"Chris Christodoulou — ""Into the Doldrums"" (official upload by composer, YouTube)",
+Omori,2020,Omocat,https://www.youtube.com/watch?v=1Zda37QKuDs,"Pedro Silva — ""Final Duet"" (original soundtrack, YouTube)",
+Ultrakill,2020,"Arsi ""Hakita"" Patala",https://www.youtube.com/watch?v=cI5V_8RErzI,"Heaven Pierce Her — ""ORDER"" (official upload by developer, YouTube)",
+Inscryption,2021,Daniel Mullins Games,https://www.youtube.com/watch?v=9ieNHByzhHs,"Jonah Senzel — ""Leshy's Theme"" (original soundtrack, YouTube)",
+Elden Ring,2022,FromSoftware,https://www.youtube.com/watch?v=Vy_MyCbpDiQ,"Tsukasa Saitoh — ""Elden Ring"" (main theme, original soundtrack, YouTube)",yes
+Cult of the Lamb,2022,Massive Monster,https://www.youtube.com/watch?v=NXXyIYXmu_M,"River Boy — ""Start a Cult"" (official upload by composer, YouTube)",
+Hollow Knight: Silksong,2025,Team Cherry,https://www.youtube.com/watch?v=o6KojUwh5wc,"Christopher Larkin — ""Silksong (Main Theme)"" (original soundtrack, YouTube)",

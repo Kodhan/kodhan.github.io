@@ -30,14 +30,14 @@ const STORAGE_KEY = 'vgmCardMaker.v1';
 const LIBRARY_CSV_PATH = 'data/library.csv';
 
 const SAMPLE_CARDS = [
-  { game: 'Super Mario Bros.', year: '1985', studio: 'Nintendo R&D4', url: 'https://open.spotify.com/track/03fijJ2GEzZ92Zl5fuTxI7', notes: 'Koji Kondo — cover recording (official Nintendo OST is not on Spotify)' },
-  { game: 'The Legend of Zelda: Ocarina of Time', year: '1998', studio: 'Nintendo EAD', url: 'https://www.youtube.com/watch?v=0hEYvdMoF2g', notes: 'Koji Kondo — "Gerudo Valley" (Nintendo OST absent from Spotify, linked via YouTube)' },
-  { game: 'Half-Life 2', year: '2004', studio: 'Valve', url: 'https://open.spotify.com/track/3EAX272za8qK7lZziGwDDy', notes: 'Kelly Bailey — "Triage at Dawn" (official Valve OST)' },
-  { game: 'Final Fantasy VII', year: '1997', studio: 'Square', url: 'https://open.spotify.com/track/2N2XmjVEzutc5U1LIRIdaP', notes: 'Nobuo Uematsu — "One-Winged Angel" (official licensed release)' },
-  { game: 'Portal', year: '2007', studio: 'Valve', url: 'https://open.spotify.com/track/76jLguvP9uwjwYpApKUNvW', notes: 'Jonathan Coulton & GLaDOS — "Still Alive" (official Orange Box OST)' },
-  { game: 'Minecraft', year: '2011', studio: 'Mojang Studios', url: 'https://open.spotify.com/track/4NsPgRYUdHu2Q5JRNgXYU5', notes: 'C418 — "Sweden" (official Minecraft – Volume Alpha)' },
-  { game: 'Undertale', year: '2015', studio: 'tobyfox', url: 'https://open.spotify.com/track/2pSmmjPNHG3FIVh6dgy24e', notes: 'Toby Fox — "Megalovania" (official OST)' },
-  { game: 'Celeste', year: '2018', studio: 'Maddy Makes Games', url: 'https://open.spotify.com/track/03EyMyy76ZYLUh3lvGrNgE', notes: 'Lena Raine — "First Steps" (official OST)' },
+  { game: 'Super Mario Bros.', year: '1985', studio: 'Nintendo R&D4', url: 'https://www.youtube.com/watch?v=iy3qq7zc4EY', notes: 'Koji Kondo — "Overworld Theme" (original NES audio, YouTube)' },
+  { game: 'The Legend of Zelda: Ocarina of Time', year: '1998', studio: 'Nintendo EAD', url: 'https://www.youtube.com/watch?v=0hEYvdMoF2g', notes: 'Koji Kondo — "Gerudo Valley" (original game audio, YouTube)' },
+  { game: 'Half-Life 2', year: '2004', studio: 'Valve', url: 'https://www.youtube.com/watch?v=M8tqzUVvUlY', notes: 'Kelly Bailey — "Triage at Dawn" (long version, original game audio, YouTube)' },
+  { game: 'Final Fantasy VII', year: '1997', studio: 'Square', url: 'https://www.youtube.com/watch?v=mYdf0yqK_Fc', notes: 'Nobuo Uematsu — "One-Winged Angel" (original PS1 audio, YouTube)' },
+  { game: 'Portal', year: '2007', studio: 'Valve', url: 'https://www.youtube.com/watch?v=Y6ljFaKRTrI', notes: 'Jonathan Coulton & GLaDOS — "Still Alive" (original game audio, YouTube)' },
+  { game: 'Minecraft', year: '2011', studio: 'Mojang Studios', url: 'https://www.youtube.com/watch?v=-jCvPNAmbEQ', notes: 'C418 — "Sweden" (Minecraft – Volume Alpha, YouTube)' },
+  { game: 'Undertale', year: '2015', studio: 'tobyfox', url: 'https://www.youtube.com/watch?v=0FCvzsVlXpQ', notes: 'Toby Fox — "Megalovania" (official soundtrack, YouTube)' },
+  { game: 'Celeste', year: '2018', studio: 'Maddy Makes Games', url: 'https://www.youtube.com/watch?v=YehZRWg14HA', notes: 'Lena Raine — "First Steps" (official soundtrack, YouTube)' },
 ];
 
 /* ---------------------------------------------------------------------- */
@@ -188,7 +188,18 @@ function parseCsv(text) {
   return rows.filter(r => r.some(f => f.trim() !== ''));
 }
 
-function csvToCards(text) {
+function isTruthyFlag(v) {
+  return ['yes', 'y', 'true', '1', 'x'].includes((v || '').trim().toLowerCase());
+}
+
+/**
+ * Parse CSV text into card objects.
+ * `opts.onlyBest` keeps just the rows flagged in the optional "best" column
+ * (see data/library.csv) — used by the "Load Best 100" button. Any CSV without
+ * that column is returned in full, so hand-made imports are unaffected.
+ */
+function csvToCards(text, opts) {
+  const onlyBest = !!(opts && opts.onlyBest);
   const rows = parseCsv(text);
   if (!rows.length) return [];
   let start = 0;
@@ -200,9 +211,11 @@ function csvToCards(text) {
     colIndex = {};
     header.forEach((h, idx) => { colIndex[h] = idx; });
   }
+  const bestCol = looksLikeHeader && header.includes('best') ? colIndex.best : -1;
   const out = [];
   for (let i = start; i < rows.length; i++) {
     const r = rows[i];
+    if (onlyBest && bestCol >= 0 && !isTruthyFlag(r[bestCol])) continue;
     out.push({
       id: uid(),
       game: (r[colIndex.game] || '').trim(),
@@ -234,7 +247,8 @@ const els = {};
 
 function cacheEls() {
   [
-    'btnAddCard', 'btnLoadSample', 'btnLoadLibrary', 'btnClearAll', 'csvFileInput', 'btnExportCsv',
+    'btnAddCard', 'btnLoadSample', 'btnLoadBest100', 'btnLoadLibrary', 'btnClearAll',
+    'csvFileInput', 'btnExportCsv',
     'btnDownloadTemplate', 'btnPrint', 'setPageSize', 'setCardSize', 'customSizeWrap',
     'setCustomW', 'setCustomH', 'setDuplex', 'setCutGuides', 'setShowNotes', 'setZoom',
     'setBlindMode',
@@ -1241,16 +1255,20 @@ function wireToolbar() {
     saveState(); renderTable(); renderPreview();
   });
 
-  els.btnLoadLibrary.addEventListener('click', async () => {
-    if (state.cards.length && !confirm('This will append the full library to your current cards. Continue?')) return;
-    const originalLabel = els.btnLoadLibrary.textContent;
-    els.btnLoadLibrary.disabled = true;
-    els.btnLoadLibrary.textContent = 'Loading…';
+  /**
+   * Shared handler for both library buttons. They read the same
+   * data/library.csv; `onlyBest` narrows it to the curated subset.
+   */
+  async function loadBundledLibrary(btn, { onlyBest, confirmText }) {
+    if (state.cards.length && !confirm(confirmText)) return;
+    const originalLabel = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = 'Loading…';
     try {
       const res = await fetch(LIBRARY_CSV_PATH, { cache: 'no-store' });
       if (!res.ok) throw new Error('HTTP ' + res.status);
       const text = await res.text();
-      const imported = csvToCards(text);
+      const imported = csvToCards(text, { onlyBest });
       if (!imported.length) throw new Error('Library file was empty');
       state.cards = state.cards.concat(imported);
       saveState(); renderTable(); renderPreview();
@@ -1262,10 +1280,20 @@ function wireToolbar() {
         "as a file:// page. Use Import CSV instead for local files."
       );
     } finally {
-      els.btnLoadLibrary.disabled = false;
-      els.btnLoadLibrary.textContent = originalLabel;
+      btn.disabled = false;
+      btn.textContent = originalLabel;
     }
-  });
+  }
+
+  els.btnLoadBest100.addEventListener('click', () => loadBundledLibrary(els.btnLoadBest100, {
+    onlyBest: true,
+    confirmText: 'This will append the curated Best 100 deck to your current cards. Continue?',
+  }));
+
+  els.btnLoadLibrary.addEventListener('click', () => loadBundledLibrary(els.btnLoadLibrary, {
+    onlyBest: false,
+    confirmText: 'This will append the full 150-card library to your current cards. Continue?',
+  }));
 
   els.btnClearAll.addEventListener('click', () => {
     if (!state.cards.length) return;

@@ -7,7 +7,8 @@ A print-and-play card generator for your video-game-music guessing board game:
 - **▶ Play Mode:** play solo (or as a group around one screen) right in the browser — no printing needed. It plays each song in an embedded, auto-playing player and lets you reveal/hide the answer on demand.
 - **📷 Scan Card:** use your phone's camera *in the browser* to scan a printed card's QR code — like Hitster's app. It plays the song immediately, answer hidden, no need to switch to your camera app.
 - **🙈 Blind Mode:** blurs Game/Year/Studio/Notes everywhere on screen (the data table *and* the Backs print preview) so you can import/manage a big deck without spoiling it for yourself. Printed/PDF output is never blurred. **On by default.**
-- **📚 Load Full Library:** one click to load the bundled full deck ([`data/library.csv`](data/library.csv)) instead of manually importing a file.
+- **⭐ Load Best 100:** one click to load the curated subset — the 100 cards out of the 150 whose music is most instantly recognisable, which makes for the best guessing-game questions. This is the recommended deck to actually play with.
+- **📚 Load Full Library (150):** loads the complete bundled deck ([`data/library.csv`](data/library.csv), 150 cards, all YouTube links to the original game audio), including the deeper cuts the Best 100 leaves out.
 - **🎧 Connect Spotify:** log in with a Spotify Premium account so tracks play in full instead of Spotify's default 30-second preview.
 
 It's a single static web app — no install, no account, no server required. Also hosted live at **[kodhan.github.io](https://kodhan.github.io/)**.
@@ -15,11 +16,11 @@ It's a single static web app — no install, no account, no server required. Als
 ## Quick start
 
 1. Open [`index.html`](index.html) by double-clicking it (or right-click → Open with → your browser) — or just visit the [hosted version](https://kodhan.github.io/).
-   - If your browser blocks local scripts from loading, or you want **📚 Load Full Library** to work locally too (it needs http/https, not a bare `file://` page), run a tiny local server from this folder and open `http://localhost:8000` instead:
+   - If your browser blocks local scripts from loading, or you want **⭐ Load Best 100** / **📚 Load Full Library** to work locally too (they need http/https, not a bare `file://` page), run a tiny local server from this folder and open `http://localhost:8000` instead:
      ```bash
      python -m http.server 8000
      ```
-2. Click **📚 Load Full Library** for the full bundled deck, **Load Sample Deck** for 8 examples, or **+ Add Card** to start your own.
+2. Click **⭐ Load Best 100** for the curated play deck, **📚 Load Full Library (150)** for everything, **Load Sample Deck** for 8 examples, or **+ Add Card** to start your own.
 3. Fill in **Game**, **Year**, **Studio**, and a **Music URL** (a Spotify track/album link, or a YouTube link) for each card. Notes/composer is optional and only shows on the back if you enable it.
 4. Adjust the settings bar: page size (A4/Letter), card size (poker/bridge/tarot/custom mm), duplex alignment, cut guides.
 5. Click **🖨️ Print / Save PDF**. Choose "Save as PDF" in the print dialog, or print directly to cardstock.
@@ -100,7 +101,22 @@ The QR code (and Play Mode's embedded player) encode exactly whatever you put in
 - *Spotify:* find the song in the Spotify app or web player → **⋯ (More) → Share → Copy Song Link**. You'll get something like `https://open.spotify.com/track/<22-character-id>?si=...` — that whole thing works fine.
 - *YouTube:* open the actual video → **Share → Copy link**, or just copy the URL from the address bar once you're on the video's own page (`youtube.com/watch?v=...` or `youtu.be/...`).
 
-The sample deck in this app now uses real, verified direct links for all 8 songs (mostly official soundtrack releases, plus one cover and one YouTube link for the two Nintendo tracks — see below) so you can see exactly what a working card looks like. Always test a card (scan it, or check it in Play Mode) before printing the full deck.
+The sample deck and the bundled library use real, verified direct YouTube links for every song, so you can see exactly what a working card looks like. Always test a card (scan it, or check it in Play Mode) before printing the full deck.
+
+## The two bundled decks: Best 100 vs. all 150
+
+The full library is 150 cards. For actually *playing*, 150 is more than you need, and the tail of it is noticeably harder than the rest — so 100 of them are flagged as the curated deck behind **⭐ Load Best 100**.
+
+What got a card into the Best 100:
+
+- **You can name the game from the music alone.** This is the whole job of a card. A famous *game* with a forgettable or atmospheric track is a bad question; a mid-tier game with an unmistakable hook is a good one.
+- **A melody, not a mood.** Ambient and texture-driven tracks got cut even from well-loved games — nobody wins a round off drifting synth pads.
+- **Not confusable with another card in the deck.** Two tracks by the same composer-and-vocalist pairing make each other harder, not easier: that's why Supergiant appears as Bastion and Hades but not also Transistor.
+- **Spread across eras.** The subset lands at roughly 12 cards from the '80s, 31 from the '90s, 23 from the '00s, 28 from the '10s and 6 from the '20s — so a round doesn't turn into chiptune hour or an indie-only quiz.
+
+What stayed in the full 150 instead: deeper cuts and atmospheric picks (Silent Hill's "Not Tomorrow", Okami's "Reset", Fez, Hyper Light Drifter, Subnautica), good games whose chosen track isn't a hook (Ratchet & Clank, Batman: Arkham Asylum, Titanfall 2, Ghost of Tsushima), and recent indies whose music is excellent but not yet widely known (Tunic, Unpacking, Loop Hero, Sea of Stars, Cult of the Lamb, Silksong).
+
+Both buttons read the same file — see [CSV format](#csv-format) for the `best` column, and flip a `yes` if you disagree with any of my calls.
 
 ## Spotify vs. YouTube coverage for video game music
 
@@ -115,22 +131,24 @@ You asked me to check whether Spotify has enough video game music, so here's wha
 
 **Practical takeaway for your board game:** don't rely on Spotify alone if your card list spans generations/publishers (especially anything Nintendo). YouTube has by far the deepest catalog of video game music — official channel uploads, full OST playlists, and comprehensive fan uploads for almost anything, including music that labels never bothered to put on streaming. That's why this app treats **Spotify and YouTube as equally first-class** per card: the "Music URL" column accepts either, and the front of the card auto-labels which service it is (small "Spotify"/"YouTube" tag under the QR code) so players know what to expect when they scan it.
 
-**Suggested workflow per card:** search the game name + "soundtrack" or the specific track name on Spotify first; if nothing official (or no good cover) turns up, fall back to a direct YouTube video link (official channel > verified compilation > well-established fan upload). The sample deck demonstrates the full spectrum I actually found while curating it:
+**Why the bundled decks now use YouTube only:** the first version of the library leaned on Spotify, but for a lot of games (especially Nintendo, retro and Japanese titles) the only thing on Spotify was a cover or re-arrangement — which makes a song much harder to recognise in a guessing game. Every card in [`data/library.csv`](data/library.csv) and the sample deck now links to a YouTube upload of the **original in-game / official soundtrack audio**. Each link was checked to exist and to allow embedding (so it plays in Play Mode and Scan Card).
 
-| Game | Link | What it actually is |
-|---|---|---|
-| Half-Life 2, Portal, Minecraft, Undertale, Celeste | Spotify | Official soundtrack releases (Valve, C418, Toby Fox, and Lena Raine all self-publish/license directly) |
-| Final Fantasy VII | Spotify | "One-Winged Angel," officially licensed orchestral release (Square Enix's *Distant Worlds* series) |
-| Super Mario Bros. | Spotify | A cover/arrangement — Nintendo's own OST isn't on Spotify, but a listenable cover is |
-| Zelda: Ocarina of Time | YouTube | "Gerudo Valley" — Nintendo's OST isn't on Spotify at all, so this is a direct YouTube video link instead |
-
-That mix is representative of what you'll run into for a real deck: indie/self-published composers (Toby Fox, C418, Lena Raine, Jonathan Coulton) are almost always cleanly available on Spotify; large publishers are hit-or-miss; Nintendo specifically you should plan on using YouTube for.
+**Suggested workflow per new card:** search YouTube for `<game> OST <track name>` and pick, in order of preference: an official "<Artist> - Topic" / composer / publisher upload, then a well-established game-rip upload (e.g. "<Game> (NES) Music - <Track>"). Skip anything labelled cover, remix, arrangement, piano/orchestral/metal, "extended"/"10 hours", or uploads from the SiIvaGunner channel (it posts joke rips). Spotify links still work in the app if you want to add them yourself.
 
 Sources: [ResetEra — video game soundtracks on Spotify](https://www.resetera.com/threads/video-games-soundtracks-on-spotify.137333/), [ResetEra — why so few game OSTs are on Spotify](https://www.resetera.com/threads/why-so-few-game-ost-are-available-on-spotify.87134/), [VGC — composers on game music licensing](https://www.videogameschronicle.com/features/composers-tell-us-why-developers-still-dont-take-game-music-seriously/), [Billboard — VGM licensing](https://www.billboard.com/pro/video-games-music-song-licensing-system-out-synch/).
 
 ## CSV format
 
 Columns: `game,year,studio,url,notes`. Import via **Import CSV** (appends to your current deck) or grab **Download Template** for a starter file you can edit in Excel/Sheets and re-import.
+
+[`data/library.csv`](data/library.csv) carries one extra, optional column — **`best`** — which is how the two load buttons share a single file instead of duplicating the deck:
+
+- `best` = `yes` marks a card as part of the curated **Best 100**. Empty means it's in the full 150 only.
+- **⭐ Load Best 100** imports only the flagged rows; **📚 Load Full Library (150)** imports every row and ignores the column.
+- The column is entirely optional. Any CSV without it imports in full, so your own files and **Download Template** are unaffected. `yes`/`y`/`true`/`1`/`x` all count as flagged.
+- **Export CSV** always writes the five standard columns, so the flag isn't carried into exported decks.
+
+To re-curate, edit the `best` column in `data/library.csv` — nothing in the app code lists card names.
 
 ## File structure
 
@@ -140,7 +158,7 @@ style.css        – styling + print stylesheet + Play Mode overlay
 app.js           – all app logic (data, QR generation, layout, print, Play Mode)
 vendor/qrcode.js – vendored MIT-licensed QR code generator (offline, no CDN)
 vendor/jsQR.js   – vendored MIT-licensed QR code reader, used by 📷 Scan Card
-data/library.csv – bundled full deck, loaded via 📚 Load Full Library (committed to the repo — see the caveat above)
+data/library.csv – bundled 150-card deck + the `best` column behind ⭐ Load Best 100 (committed to the repo — see the caveat above)
 decks/           – working/scratch CSVs (git-ignored — never published, for local-only decks you don't want public)
 ```
 
