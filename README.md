@@ -112,9 +112,10 @@ What got a card into the Best 100:
 - **You can name the game from the music alone.** This is the whole job of a card. A famous *game* with a forgettable or atmospheric track is a bad question; a mid-tier game with an unmistakable hook is a good one.
 - **A melody, not a mood.** Ambient and texture-driven tracks got cut even from well-loved games — nobody wins a round off drifting synth pads.
 - **Not confusable with another card in the deck.** Two tracks by the same composer-and-vocalist pairing make each other harder, not easier: that's why Supergiant appears as Bastion and Hades but not also Transistor.
-- **Spread across eras.** The subset lands at roughly 12 cards from the '80s, 31 from the '90s, 23 from the '00s, 28 from the '10s and 6 from the '20s — so a round doesn't turn into chiptune hour or an indie-only quiz.
+- **Age is not a factor.** Recent releases are *not* penalised for being recent — the people playing this follow new games, so Silksong, Tunic, Vampire Survivors, Cult of the Lamb and Inscryption are as fair a question as Pac-Man. The deck is deliberately heavier on the 2020s than a "classics" list would be.
+- **Spread across eras.** The subset lands at 12 cards from the '80s, 30 from the '90s, 18 from the '00s, 27 from the '10s and 13 from the '20s — so a round doesn't turn into chiptune hour.
 
-What stayed in the full 150 instead: deeper cuts and atmospheric picks (Silent Hill's "Not Tomorrow", Okami's "Reset", Fez, Hyper Light Drifter, Subnautica), good games whose chosen track isn't a hook (Ratchet & Clank, Batman: Arkham Asylum, Titanfall 2, Ghost of Tsushima), and recent indies whose music is excellent but not yet widely known (Tunic, Unpacking, Loop Hero, Sea of Stars, Cult of the Lamb, Silksong).
+What stayed in the full 150 instead: atmospheric picks with no melody to grab onto (Silent Hill's "Not Tomorrow", Okami's "Reset", Fez, Hyper Light Drifter, Subnautica, Journey's "Nascence"), good games whose chosen track is interchangeable orchestral scoring (Gears of War, God of War, Shadow of the Colossus, Titanfall 2, Ghost of Tsushima, Batman: Arkham Asylum), and cards where the track isn't the one the game is known for (Plants vs. Zombies' "Loonboon" rather than "Grasswalk", Resident Evil's save-room ambience).
 
 Both buttons read the same file — see [CSV format](#csv-format) for the `best` column, and flip a `yes` if you disagree with any of my calls.
 
